@@ -1,0 +1,579 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1E11404220A74C73828490AE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BD51216E0AE428C990DFE5C /* libPods.a */; };
+		4A258C261797C4C50010F660 /* point.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A258C251797C4C50010F660 /* point.png */; };
+		4A258C291797D3E00010F660 /* AFField@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A258C271797D3E00010F660 /* AFField@2x.png */; };
+		4A258C2A1797D3E00010F660 /* AFField.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A258C281797D3E00010F660 /* AFField.png */; };
+		4A54DD4E1798EF8200BF7359 /* QTreeContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A54DD4D1798EF8200BF7359 /* QTreeContact.m */; };
+		4A54DD5C179A36D100BF7359 /* bg.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4A54DD5B179A36D100BF7359 /* bg.atlas */; };
+		4A89FB7417966C07001C7A19 /* QTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A89FB7117966C07001C7A19 /* QTree.m */; };
+		4A89FB7517966C07001C7A19 /* QTreeLeaf.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A89FB7317966C07001C7A19 /* QTreeLeaf.m */; };
+		4A89FB7B17968E89001C7A19 /* QTreeRoot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A89FB7A17968A3B001C7A19 /* QTreeRoot.m */; };
+		4AA6166D1793D68200D88C6C /* MyParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4AA6166B1793D68200D88C6C /* MyParticle.sks */; };
+		4AA6166E1793D68200D88C6C /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AA6166C1793D68200D88C6C /* spark.png */; };
+		4ADE24671793CD7F004EDA9F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADE24661793CD7F004EDA9F /* Foundation.framework */; };
+		4ADE24691793CD7F004EDA9F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADE24681793CD7F004EDA9F /* CoreGraphics.framework */; };
+		4ADE246B1793CD7F004EDA9F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADE246A1793CD7F004EDA9F /* UIKit.framework */; };
+		4ADE246D1793CD7F004EDA9F /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADE246C1793CD7F004EDA9F /* SpriteKit.framework */; };
+		4ADE24731793CD7F004EDA9F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4ADE24711793CD7F004EDA9F /* InfoPlist.strings */; };
+		4ADE24751793CD7F004EDA9F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE24741793CD7F004EDA9F /* main.m */; };
+		4ADE24791793CD7F004EDA9F /* AFAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE24781793CD7F004EDA9F /* AFAppDelegate.m */; };
+		4ADE24821793CD7F004EDA9F /* AFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE24811793CD7F004EDA9F /* AFViewController.m */; };
+		4ADE24851793CD7F004EDA9F /* AFMyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE24841793CD7F004EDA9F /* AFMyScene.m */; };
+		4ADE24871793CD7F004EDA9F /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ADE24861793CD7F004EDA9F /* Spaceship.png */; };
+		4ADE24891793CD7F004EDA9F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4ADE24881793CD7F004EDA9F /* Images.xcassets */; };
+		4ADE24901793CD7F004EDA9F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADE248F1793CD7F004EDA9F /* XCTest.framework */; };
+		4ADE24911793CD7F004EDA9F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADE24661793CD7F004EDA9F /* Foundation.framework */; };
+		4ADE24921793CD7F004EDA9F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADE246A1793CD7F004EDA9F /* UIKit.framework */; };
+		4ADE249A1793CD7F004EDA9F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4ADE24981793CD7F004EDA9F /* InfoPlist.strings */; };
+		4ADE249C1793CD7F004EDA9F /* AFootballTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE249B1793CD7F004EDA9F /* AFootballTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4ADE24931793CD7F004EDA9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4ADE245B1793CD7F004EDA9F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4ADE24621793CD7F004EDA9F;
+			remoteInfo = AFootball;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4A258C251797C4C50010F660 /* point.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = point.png; sourceTree = "<group>"; };
+		4A258C271797D3E00010F660 /* AFField@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AFField@2x.png"; sourceTree = "<group>"; };
+		4A258C281797D3E00010F660 /* AFField.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AFField.png; sourceTree = "<group>"; };
+		4A54DD4C1798EF8200BF7359 /* QTreeContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QTreeContact.h; sourceTree = "<group>"; };
+		4A54DD4D1798EF8200BF7359 /* QTreeContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QTreeContact.m; sourceTree = "<group>"; };
+		4A54DD5B179A36D100BF7359 /* bg.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = bg.atlas; sourceTree = "<group>"; };
+		4A89FB7017966C07001C7A19 /* QTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QTree.h; sourceTree = "<group>"; };
+		4A89FB7117966C07001C7A19 /* QTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QTree.m; sourceTree = "<group>"; };
+		4A89FB7217966C07001C7A19 /* QTreeLeaf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QTreeLeaf.h; sourceTree = "<group>"; };
+		4A89FB7317966C07001C7A19 /* QTreeLeaf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QTreeLeaf.m; sourceTree = "<group>"; };
+		4A89FB7917968A3B001C7A19 /* QTreeRoot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QTreeRoot.h; sourceTree = "<group>"; };
+		4A89FB7A17968A3B001C7A19 /* QTreeRoot.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QTreeRoot.m; sourceTree = "<group>"; };
+		4AA6166B1793D68200D88C6C /* MyParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyParticle.sks; sourceTree = "<group>"; };
+		4AA6166C1793D68200D88C6C /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		4ADE24631793CD7F004EDA9F /* AFootball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AFootball.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4ADE24661793CD7F004EDA9F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4ADE24681793CD7F004EDA9F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4ADE246A1793CD7F004EDA9F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		4ADE246C1793CD7F004EDA9F /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
+		4ADE24701793CD7F004EDA9F /* AFootball-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AFootball-Info.plist"; sourceTree = "<group>"; };
+		4ADE24721793CD7F004EDA9F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4ADE24741793CD7F004EDA9F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4ADE24761793CD7F004EDA9F /* AFootball-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AFootball-Prefix.pch"; sourceTree = "<group>"; };
+		4ADE24771793CD7F004EDA9F /* AFAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFAppDelegate.h; sourceTree = "<group>"; };
+		4ADE24781793CD7F004EDA9F /* AFAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AFAppDelegate.m; sourceTree = "<group>"; };
+		4ADE24801793CD7F004EDA9F /* AFViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFViewController.h; sourceTree = "<group>"; };
+		4ADE24811793CD7F004EDA9F /* AFViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AFViewController.m; sourceTree = "<group>"; };
+		4ADE24831793CD7F004EDA9F /* AFMyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFMyScene.h; sourceTree = "<group>"; };
+		4ADE24841793CD7F004EDA9F /* AFMyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AFMyScene.m; sourceTree = "<group>"; };
+		4ADE24861793CD7F004EDA9F /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
+		4ADE24881793CD7F004EDA9F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		4ADE248E1793CD7F004EDA9F /* AFootballTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AFootballTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4ADE248F1793CD7F004EDA9F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		4ADE24971793CD7F004EDA9F /* AFootballTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AFootballTests-Info.plist"; sourceTree = "<group>"; };
+		4ADE24991793CD7F004EDA9F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4ADE249B1793CD7F004EDA9F /* AFootballTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AFootballTests.m; sourceTree = "<group>"; };
+		7BD51216E0AE428C990DFE5C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D40DB9DEAD7949C2AAB41913 /* Pods/Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4ADE24601793CD7F004EDA9F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4ADE24691793CD7F004EDA9F /* CoreGraphics.framework in Frameworks */,
+				4ADE246B1793CD7F004EDA9F /* UIKit.framework in Frameworks */,
+				4ADE246D1793CD7F004EDA9F /* SpriteKit.framework in Frameworks */,
+				4ADE24671793CD7F004EDA9F /* Foundation.framework in Frameworks */,
+				1E11404220A74C73828490AE /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4ADE248B1793CD7F004EDA9F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4ADE24901793CD7F004EDA9F /* XCTest.framework in Frameworks */,
+				4ADE24921793CD7F004EDA9F /* UIKit.framework in Frameworks */,
+				4ADE24911793CD7F004EDA9F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4A89FB6F17966C07001C7A19 /* QTree */ = {
+			isa = PBXGroup;
+			children = (
+				4A89FB7017966C07001C7A19 /* QTree.h */,
+				4A89FB7117966C07001C7A19 /* QTree.m */,
+				4A89FB7217966C07001C7A19 /* QTreeLeaf.h */,
+				4A89FB7317966C07001C7A19 /* QTreeLeaf.m */,
+				4A89FB7917968A3B001C7A19 /* QTreeRoot.h */,
+				4A89FB7A17968A3B001C7A19 /* QTreeRoot.m */,
+				4A54DD4C1798EF8200BF7359 /* QTreeContact.h */,
+				4A54DD4D1798EF8200BF7359 /* QTreeContact.m */,
+			);
+			path = QTree;
+			sourceTree = "<group>";
+		};
+		4ADE245A1793CD7F004EDA9F = {
+			isa = PBXGroup;
+			children = (
+				4AA6166B1793D68200D88C6C /* MyParticle.sks */,
+				4AA6166C1793D68200D88C6C /* spark.png */,
+				4A89FB6F17966C07001C7A19 /* QTree */,
+				4ADE246E1793CD7F004EDA9F /* AFootball */,
+				4ADE24951793CD7F004EDA9F /* AFootballTests */,
+				4ADE24651793CD7F004EDA9F /* Frameworks */,
+				4ADE24641793CD7F004EDA9F /* Products */,
+				D40DB9DEAD7949C2AAB41913 /* Pods/Pods.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		4ADE24641793CD7F004EDA9F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4ADE24631793CD7F004EDA9F /* AFootball.app */,
+				4ADE248E1793CD7F004EDA9F /* AFootballTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4ADE24651793CD7F004EDA9F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4ADE24661793CD7F004EDA9F /* Foundation.framework */,
+				4ADE24681793CD7F004EDA9F /* CoreGraphics.framework */,
+				4ADE246A1793CD7F004EDA9F /* UIKit.framework */,
+				4ADE246C1793CD7F004EDA9F /* SpriteKit.framework */,
+				4ADE248F1793CD7F004EDA9F /* XCTest.framework */,
+				7BD51216E0AE428C990DFE5C /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4ADE246E1793CD7F004EDA9F /* AFootball */ = {
+			isa = PBXGroup;
+			children = (
+				4ADE24771793CD7F004EDA9F /* AFAppDelegate.h */,
+				4ADE24781793CD7F004EDA9F /* AFAppDelegate.m */,
+				4ADE24801793CD7F004EDA9F /* AFViewController.h */,
+				4ADE24811793CD7F004EDA9F /* AFViewController.m */,
+				4ADE24831793CD7F004EDA9F /* AFMyScene.h */,
+				4ADE24841793CD7F004EDA9F /* AFMyScene.m */,
+				4ADE24861793CD7F004EDA9F /* Spaceship.png */,
+				4ADE24881793CD7F004EDA9F /* Images.xcassets */,
+				4ADE246F1793CD7F004EDA9F /* Supporting Files */,
+			);
+			path = AFootball;
+			sourceTree = "<group>";
+		};
+		4ADE246F1793CD7F004EDA9F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4A54DD5B179A36D100BF7359 /* bg.atlas */,
+				4A258C271797D3E00010F660 /* AFField@2x.png */,
+				4A258C281797D3E00010F660 /* AFField.png */,
+				4A258C251797C4C50010F660 /* point.png */,
+				4ADE24701793CD7F004EDA9F /* AFootball-Info.plist */,
+				4ADE24711793CD7F004EDA9F /* InfoPlist.strings */,
+				4ADE24741793CD7F004EDA9F /* main.m */,
+				4ADE24761793CD7F004EDA9F /* AFootball-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4ADE24951793CD7F004EDA9F /* AFootballTests */ = {
+			isa = PBXGroup;
+			children = (
+				4ADE249B1793CD7F004EDA9F /* AFootballTests.m */,
+				4ADE24961793CD7F004EDA9F /* Supporting Files */,
+			);
+			path = AFootballTests;
+			sourceTree = "<group>";
+		};
+		4ADE24961793CD7F004EDA9F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4ADE24971793CD7F004EDA9F /* AFootballTests-Info.plist */,
+				4ADE24981793CD7F004EDA9F /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4ADE24621793CD7F004EDA9F /* AFootball */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4ADE249F1793CD7F004EDA9F /* Build configuration list for PBXNativeTarget "AFootball" */;
+			buildPhases = (
+				FB0340F0F8894ECE940A5EFA /* Check Pods Manifest.lock */,
+				4ADE245F1793CD7F004EDA9F /* Sources */,
+				4ADE24601793CD7F004EDA9F /* Frameworks */,
+				4ADE24611793CD7F004EDA9F /* Resources */,
+				0A1819AE8C1647E8BA7FCFD9 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AFootball;
+			productName = AFootball;
+			productReference = 4ADE24631793CD7F004EDA9F /* AFootball.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4ADE248D1793CD7F004EDA9F /* AFootballTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4ADE24A21793CD7F004EDA9F /* Build configuration list for PBXNativeTarget "AFootballTests" */;
+			buildPhases = (
+				4ADE248A1793CD7F004EDA9F /* Sources */,
+				4ADE248B1793CD7F004EDA9F /* Frameworks */,
+				4ADE248C1793CD7F004EDA9F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4ADE24941793CD7F004EDA9F /* PBXTargetDependency */,
+			);
+			name = AFootballTests;
+			productName = AFootballTests;
+			productReference = 4ADE248E1793CD7F004EDA9F /* AFootballTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4ADE245B1793CD7F004EDA9F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = AF;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = traintrackcn;
+				TargetAttributes = {
+					4ADE248D1793CD7F004EDA9F = {
+						TestTargetID = 4ADE24621793CD7F004EDA9F;
+					};
+				};
+			};
+			buildConfigurationList = 4ADE245E1793CD7F004EDA9F /* Build configuration list for PBXProject "AFootball" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4ADE245A1793CD7F004EDA9F;
+			productRefGroup = 4ADE24641793CD7F004EDA9F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4ADE24621793CD7F004EDA9F /* AFootball */,
+				4ADE248D1793CD7F004EDA9F /* AFootballTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4ADE24611793CD7F004EDA9F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4AA6166E1793D68200D88C6C /* spark.png in Resources */,
+				4A258C2A1797D3E00010F660 /* AFField.png in Resources */,
+				4ADE24871793CD7F004EDA9F /* Spaceship.png in Resources */,
+				4A54DD5C179A36D100BF7359 /* bg.atlas in Resources */,
+				4A258C261797C4C50010F660 /* point.png in Resources */,
+				4ADE24891793CD7F004EDA9F /* Images.xcassets in Resources */,
+				4ADE24731793CD7F004EDA9F /* InfoPlist.strings in Resources */,
+				4AA6166D1793D68200D88C6C /* MyParticle.sks in Resources */,
+				4A258C291797D3E00010F660 /* AFField@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4ADE248C1793CD7F004EDA9F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4ADE249A1793CD7F004EDA9F /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0A1819AE8C1647E8BA7FCFD9 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FB0340F0F8894ECE940A5EFA /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4ADE245F1793CD7F004EDA9F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A89FB7B17968E89001C7A19 /* QTreeRoot.m in Sources */,
+				4ADE24751793CD7F004EDA9F /* main.m in Sources */,
+				4A89FB7417966C07001C7A19 /* QTree.m in Sources */,
+				4ADE24851793CD7F004EDA9F /* AFMyScene.m in Sources */,
+				4A89FB7517966C07001C7A19 /* QTreeLeaf.m in Sources */,
+				4ADE24821793CD7F004EDA9F /* AFViewController.m in Sources */,
+				4A54DD4E1798EF8200BF7359 /* QTreeContact.m in Sources */,
+				4ADE24791793CD7F004EDA9F /* AFAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4ADE248A1793CD7F004EDA9F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4ADE249C1793CD7F004EDA9F /* AFootballTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4ADE24941793CD7F004EDA9F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4ADE24621793CD7F004EDA9F /* AFootball */;
+			targetProxy = 4ADE24931793CD7F004EDA9F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4ADE24711793CD7F004EDA9F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4ADE24721793CD7F004EDA9F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4ADE24981793CD7F004EDA9F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4ADE24991793CD7F004EDA9F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4ADE249D1793CD7F004EDA9F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4ADE249E1793CD7F004EDA9F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4ADE24A01793CD7F004EDA9F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D40DB9DEAD7949C2AAB41913 /* Pods/Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AFootball/AFootball-Prefix.pch";
+				INFOPLIST_FILE = "AFootball/AFootball-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		4ADE24A11793CD7F004EDA9F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D40DB9DEAD7949C2AAB41913 /* Pods/Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AFootball/AFootball-Prefix.pch";
+				INFOPLIST_FILE = "AFootball/AFootball-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		4ADE24A31793CD7F004EDA9F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AFootball.app/AFootball";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(SYSTEM_APPS_DIR)/Xcode5-DP3.app/Contents/Developer/Library/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AFootball/AFootball-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "AFootballTests/AFootballTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		4ADE24A41793CD7F004EDA9F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AFootball.app/AFootball";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(SYSTEM_APPS_DIR)/Xcode5-DP3.app/Contents/Developer/Library/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AFootball/AFootball-Prefix.pch";
+				INFOPLIST_FILE = "AFootballTests/AFootballTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4ADE245E1793CD7F004EDA9F /* Build configuration list for PBXProject "AFootball" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4ADE249D1793CD7F004EDA9F /* Debug */,
+				4ADE249E1793CD7F004EDA9F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4ADE249F1793CD7F004EDA9F /* Build configuration list for PBXNativeTarget "AFootball" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4ADE24A01793CD7F004EDA9F /* Debug */,
+				4ADE24A11793CD7F004EDA9F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4ADE24A21793CD7F004EDA9F /* Build configuration list for PBXNativeTarget "AFootballTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4ADE24A31793CD7F004EDA9F /* Debug */,
+				4ADE24A41793CD7F004EDA9F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4ADE245B1793CD7F004EDA9F /* Project object */;
+}

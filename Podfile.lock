@@ -1,0 +1,20 @@
+PODS:
+  - libOpen (0.1.2):
+    - libOpen/CommonARC
+    - libOpen/CommonNoARC
+    - libOpen/Tao
+  - libOpen/CommonARC (0.1.2)
+  - libOpen/CommonNoARC (0.1.2)
+  - libOpen/Tao (0.1.2)
+
+DEPENDENCIES:
+  - libOpen (from `https://github.com/traintrackcn/libOpen`)
+
+EXTERNAL SOURCES:
+  libOpen:
+    :git: https://github.com/traintrackcn/libOpen
+
+SPEC CHECKSUMS:
+  libOpen: 2230bfcc893ac0f04656ff9b08007a846deb3a05
+
+COCOAPODS: 0.22.2
