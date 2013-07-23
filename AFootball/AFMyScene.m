@@ -14,6 +14,7 @@ static const uint32_t otherCategory        =  0x1 << 1;
 
 @interface AFMyScene(){
     SKNode *baseLayer;
+    SKNode *backgroundLayer;
     SKNode *treeLayer;
     SKNode *leafLayer;
     
@@ -24,6 +25,8 @@ static const uint32_t otherCategory        =  0x1 << 1;
     
     CGFloat _scale;
     QTreeLeaf *focusedLeaf;
+    
+    CGRect bgFrame;
 }
 
 @end
@@ -34,17 +37,19 @@ static const uint32_t otherCategory        =  0x1 << 1;
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         
-//        [self createBackground];
-        _scale = 0.5;
+
+        _scale = 1;
         
         
         self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
         [self createLayers];
+        [self ceateQTreeRootAndDraw];
+        [self createLabel];
+        [self createBackground];
         
         nodes = [NSMutableDictionary dictionary];
         
-        [self ceateQTreeRootAndDraw];
-        [self createLabel];
+        
         
         
         
@@ -62,6 +67,9 @@ static const uint32_t otherCategory        =  0x1 << 1;
     [self addChild:baseLayer];
     [baseLayer setScale:_scale];
     
+    backgroundLayer = [[SKNode alloc] init];
+    [baseLayer addChild:backgroundLayer];
+    
     treeLayer = [[SKNode alloc] init];
     [baseLayer addChild:treeLayer];
     
@@ -71,9 +79,11 @@ static const uint32_t otherCategory        =  0x1 << 1;
 
 - (void)createBackground{
     SKSpriteNode *node = [SKSpriteNode spriteNodeWithImageNamed:@"AFField"];
-    CGPoint targetPos = CGPointMake(self.size.width/2, self.size.height/2);
+    CGSize halfSize = [[QTreeRoot sharedInstance] halfSize];
+    CGPoint targetPos = CGPointMake(halfSize.width, halfSize.height);
+//    targetPos = CGPointZero;
     [node setPosition:targetPos];
-    [self addChild:node];
+    [backgroundLayer addChild:node];
 }
 
 - (void)createLabel{
@@ -104,6 +114,13 @@ static const uint32_t otherCategory        =  0x1 << 1;
     float rootY = rootFrame.origin.y;
     float rootW = rootFrame.size.width;
     float rootH = rootFrame.size.height;
+    
+    
+    UIImage *bgImg = [UIImage imageNamed:@"AFField"];
+    rootX = (rootW - bgImg.size.width)/2;
+    rootW =  bgImg.size.width;
+    
+    bgFrame = CGRectMake(rootX, rootY, rootW, rootH);
     
     CGPoint startL = CGPointMake(rootX+rootW, rootY);
     CGPoint endL = CGPointMake(rootX+rootW, rootY+rootH);
@@ -166,6 +183,7 @@ static const uint32_t otherCategory        =  0x1 << 1;
 //    TLOG(@"bgName -> %@", bgName);
     SKSpriteNode *node = [SKSpriteNode spriteNodeWithImageNamed:bgName];
     node.position = tree.center;
+    node.alpha = 0.5;
     [treeLayer addChild:node];
     
     [nodes setObject:node forKey:[tree key]];
@@ -189,7 +207,7 @@ static const uint32_t otherCategory        =  0x1 << 1;
     SKPhysicsBody *body = [SKPhysicsBody bodyWithRectangleOfSize:node.size];
     [body setAffectedByGravity:NO];
     [body setDynamic:YES];
-    [body setAllowsRotation:YES];
+    [body setAllowsRotation:NO];
     [body setCategoryBitMask:leafCategory];
     [body setContactTestBitMask:leafCategory];
     [body setCollisionBitMask:otherCategory];
@@ -221,12 +239,12 @@ static const uint32_t otherCategory        =  0x1 << 1;
     int count = [[[QTreeRoot sharedInstance] registeredLeafs] count];
     [leafCountLabel setText:[NSString stringWithFormat:@"leaf:%d",count]];
     
-    if (count == 100) {
+    if (count == 1) {
         focusedLeaf = leaf;
 //        [node setColor:[UIColor blueColor]];
 //        [node setBlendMode:SKBlendModeSubtract];
 //        [node setColorBlendFactor:1];
-        [node setScale:2.0];
+        [node setScale:0.5];
     }
     
 }
@@ -252,11 +270,16 @@ static const uint32_t otherCategory        =  0x1 << 1;
     
     CGPoint location = CGPointZero;
     //        float s = [self scale];
-    for (int i=0; i<100; i++) {
-        location.x = arc4random()%240+6;
+    int leafCount = 50;
+    int bgW = bgFrame.size.width;
+    
+    TLOG(@"bgW %d", bgW);
+    
+    for (int i=0; i<leafCount; i++) {
+        location.x = arc4random()% bgW + bgFrame.origin.x;
         location.y = arc4random()%240+6;
 //        TLOG(@"_scale -> %f", _scale);
-        location = CGPointMake(location.x, location.y);
+//        location = CGPointMake(location.x, location.y);
         
         [self appendLeaf:location];
     }
@@ -292,9 +315,9 @@ static const uint32_t otherCategory        =  0x1 << 1;
     float targetScale = 0;
     int scaleMode = 0;
     if (_scale == 2) {
-        targetScale = 0.5;
+        targetScale = 1;
         scaleMode = SKActionTimingEaseOut;
-    }else if(_scale == 0.5){
+    }else if(_scale == 1){
         targetScale = 2;
         scaleMode = SKActionTimingEaseIn;
     }else{
@@ -359,6 +382,7 @@ static const uint32_t otherCategory        =  0x1 << 1;
         QTreeLeaf *leaf = [leafs objectAtIndex:i];
         SKSpriteNode *node = [nodes objectForKey:[leaf key]];
         CGRect aabb = [self genAABB:node];
+//        TLOG(@"aabb w:%f h:%f", aabb.size.width, aabb.size.height);
         [leaf setAabb:aabb];
         [[QTreeRoot sharedInstance] updateLeaf:leaf];
         
@@ -388,12 +412,12 @@ static const uint32_t otherCategory        =  0x1 << 1;
 }
 
 - (void)qtreeDidRegisterTree:(QTree *)tree{
-//    return;
+    return;
     [self drawQTree:tree];
 }
 
 - (void)qtreeDidUnregisterTree:(QTree *)tree{
-//    return;
+    return;
     SKShapeNode *node = [nodes objectForKey:[tree key]];
     [node removeFromParent];
     [nodes removeObjectForKey:[tree key]];
