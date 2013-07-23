@@ -13,6 +13,7 @@ static const uint32_t leafCategory        =  0x1 << 0;
 static const uint32_t otherCategory        =  0x1 << 1;
 
 @interface AFMyScene(){
+    SKCropNode *mapLayer;
     SKNode *baseLayer;
     SKNode *backgroundLayer;
     SKNode *treeLayer;
@@ -24,9 +25,12 @@ static const uint32_t otherCategory        =  0x1 << 1;
     NSMutableDictionary *nodes;
     
     CGFloat _scale;
+    CGFloat targetScale;
     QTreeLeaf *focusedLeaf;
     
     CGRect bgFrame;
+//    CGSize mapSize;
+    
 }
 
 @end
@@ -63,8 +67,20 @@ static const uint32_t otherCategory        =  0x1 << 1;
 
 
 - (void)createLayers{
+    mapLayer = [SKCropNode node];
+    [self addChild:mapLayer];
+    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    SKSpriteNode *maskNode = [SKSpriteNode spriteNodeWithColor:[UIColor grayColor] size:CGSizeMake(screenSize.width,screenSize.width)];
+    [maskNode setPosition:CGPointMake(maskNode.size.width/2, maskNode.size.height/2)];
+    [mapLayer addChild:maskNode];
+    [mapLayer setMaskNode:maskNode];
+    
+    CGPoint mapPos = CGPointMake((screenSize.width - maskNode.size.width)/2, (screenSize.height - maskNode.size.height)/2);
+    [mapLayer setPosition:mapPos];
+    
+    
     baseLayer = [[SKNode alloc] init];
-    [self addChild:baseLayer];
+    [mapLayer addChild:baseLayer];
     [baseLayer setScale:_scale];
     
     backgroundLayer = [[SKNode alloc] init];
@@ -76,6 +92,8 @@ static const uint32_t otherCategory        =  0x1 << 1;
     leafLayer = [[SKNode alloc] init];
     [baseLayer addChild:leafLayer];
 }
+
+#pragma mark -
 
 - (void)createBackground{
     SKSpriteNode *node = [SKSpriteNode spriteNodeWithImageNamed:@"AFField"];
@@ -98,6 +116,8 @@ static const uint32_t otherCategory        =  0x1 << 1;
     [self addChild:collideCountLabel];
 }
 
+#pragma mark - tree actions
+
 - (void)ceateQTreeRootAndDraw{
     CGFloat w = 256.0;
     CGFloat h = 256.0;
@@ -109,7 +129,7 @@ static const uint32_t otherCategory        =  0x1 << 1;
     
     [[QTreeRoot sharedInstance] generateWithFrame:CGRectMake(x, y, w, h)];
     [[QTreeRoot sharedInstance] setDelegate:self];
-    [self drawQTree:[[QTreeRoot sharedInstance] root]];
+//    [self drawQTree:[[QTreeRoot sharedInstance] root]];
     CGRect rootFrame = [[[QTreeRoot sharedInstance] root] frame];
     float rootX = rootFrame.origin.x;
     float rootY = rootFrame.origin.y;
@@ -190,10 +210,14 @@ static const uint32_t otherCategory        =  0x1 << 1;
     [nodes setObject:node forKey:[tree key]];
 }
 
+
+
+
+#pragma mark - leaf operators
+
 - (CGFloat)randomVelocityScalar{
     return (arc4random() % 20) + 10;
 }
-
 
 - (void)appendLeaf:(CGPoint)pos{
 
@@ -245,7 +269,7 @@ static const uint32_t otherCategory        =  0x1 << 1;
 //        [node setColor:[UIColor blueColor]];
 //        [node setBlendMode:SKBlendModeSubtract];
 //        [node setColorBlendFactor:1];
-        [node setScale:0.5];
+//        [node setScale:0.5];
     }
     
 }
@@ -271,10 +295,10 @@ static const uint32_t otherCategory        =  0x1 << 1;
     
     CGPoint location = CGPointZero;
     //        float s = [self scale];
-    int leafCount = 50;
+    int leafCount = 10;
     int bgW = bgFrame.size.width;
     
-    TLOG(@"bgW %d", bgW);
+//    TLOG(@"bgW %d", bgW);
     
     for (int i=0; i<leafCount; i++) {
         location.x = arc4random()% bgW + bgFrame.origin.x;
@@ -288,6 +312,8 @@ static const uint32_t otherCategory        =  0x1 << 1;
     
     
 }
+
+#pragma mark - touch actions
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     /* Called when a touch begins */
@@ -307,73 +333,133 @@ static const uint32_t otherCategory        =  0x1 << 1;
 }
 
 
-
+#pragma mark - map actions
 
 - (void)zoom{
     
 //    TLOG(@"_scale -> %f", _scale);
     
-    float targetScale = 0;
-    int scaleMode = 0;
-    if (_scale == 2) {
-        targetScale = 1;
-        scaleMode = SKActionTimingEaseOut;
-    }else if(_scale == 1){
-        targetScale = 2;
-        scaleMode = SKActionTimingEaseIn;
-    }else{
-        return;
+//    float targetScale = 0;
+//    int scaleMode = 0;
+//    if (_scale == 2) {
+//        targetScale = 1;
+//        scaleMode = SKActionTimingEaseOut;
+//    }else if(_scale == 1){
+//        targetScale = 2;
+//        scaleMode = SKActionTimingEaseIn;
+//    }else{
+//        return;
+//    }
+//    
+//    
+//    float duration = 0.8;
+//    SKAction *action = [SKAction customActionWithDuration:duration actionBlock:^(SKNode *node, CGFloat elapsedTime) {
+////        TLOG(@"elapsedTime -> %f", elapsedTime);
+//        _scale = (targetScale-_scale) * (elapsedTime/duration)+_scale;
+//        [baseLayer setScale:_scale];
+//    }];
+//    [action setTimingMode:scaleMode];
+//    
+//    
+//    [baseLayer runAction:action  withKey:@"scale"];
+    
+    
+}
+
+- (CGPoint)groupCenter{
+    NSArray *leafs = [[QTreeRoot sharedInstance] registeredLeafs];
+    float xMax, xMin, yMax, yMin;
+    QTreeLeaf *leaf;
+    SKNode *node;
+    if ([leafs count]==0) {
+        return CGPointZero;
     }
     
-//    [self focusAction];
-//    return;
-//    scaleMode = SKActionTimingLinear;
+    if ([leafs count] == 1) {
+        leaf = [leafs objectAtIndex:0];
+        node = [nodes objectForKey:[leaf key]];
+        return [node position];
+    }
     
-    float duration = 0.8;
-    SKAction *action = [SKAction customActionWithDuration:duration actionBlock:^(SKNode *node, CGFloat elapsedTime) {
-//        TLOG(@"elapsedTime -> %f", elapsedTime);
-        _scale = (targetScale-_scale) * (elapsedTime/duration)+_scale;
-        [baseLayer setScale:_scale];
-//        [self focusAction];
-    }];
-    [action setTimingMode:scaleMode];
+    int lastIdx = [leafs count] - 1;
+    int idx = 0;
+    
+    while (idx <= lastIdx) {
+        leaf = [leafs objectAtIndex:idx];
+        node = [nodes objectForKey:[leaf key]];
+        CGPoint pos = [node position];
+        
+        if (idx == 0) {
+            xMax = pos.x;
+            xMin = pos.x;
+            yMax = pos.y;
+            yMin = pos.y;
+        }else{
+            xMax = MAX(xMax, pos.x);
+            xMin = MIN(xMin, pos.x);
+            yMax = MAX(yMax, pos.y);
+            yMin = MIN(yMin, pos.y);
+        }
+        
+        idx ++;
+    }
     
     
-    [baseLayer runAction:action  withKey:@"scale"];
+    // a little bit more focus area 
+    xMax += 20;
+    xMin -= 20;
+    yMax += 20;
+    yMin -= 20;
     
+    float x = (xMax-xMin)/2.0 + xMin;
+    float y = (yMax - yMin)/2.0 + yMin;
     
+    float distanceX = ABS(xMax-xMin);
+    float distanceY = ABS(yMax - yMin);
+    CGSize mapSize = ((SKSpriteNode *)mapLayer.maskNode).size;
+    float scaleX = mapSize.width/distanceX;
+    float scaleY = mapSize.height/distanceY;
+//    TLOG(@"scaleX %f  mapSize.width %f distanceX %f", scaleX, mapSize.width, distanceX);
+    targetScale = scaleX>scaleY?scaleY:scaleX;
+    
+    return CGPointMake(x, y);
 }
-
-- (void)appendSpaceShip:(CGPoint)location{
-    SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
-    sprite.position = location;
-    SKAction *action = [SKAction rotateByAngle:M_PI duration:1];
-    [sprite runAction:[SKAction repeatActionForever:action]];
-    [self addChild:sprite];
-}
-
-
 
 - (void)focusAction{
-    if (!focusedLeaf) return;
-    SKSpriteNode *node = [self focusedNode];
-//    TLOG(@"action -> %@",[node actionForKey:@"focus"]);
-//    if ([baseLayer actionForKey:@"focus"]) return;
-//    TLOG(@"do focus");
-    
-    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
-    CGPoint target = CGPointMake(-[node position].x*_scale + screenSize.width/2.0, -[node position] .y*_scale + screenSize.height/2.0);
-
-//    SKAction *action = [SKAction moveTo:target duration:0.1];
-//    [action setTimingMode:SKActionTimingEaseOut];
-//    [baseLayer runAction:action withKey:@"focus"];
-    [baseLayer setPosition:target];
+//    [self focusSingle];
+    [self focusGroup];
     
 }
+
+- (void)focusSingle{
+    if (!focusedLeaf) return;
+    SKSpriteNode *node = [self focusedNode];
+    CGPoint targetPos  = [node position];
+    [self focus:targetPos];
+}
+
+- (void)focusGroup{
+    CGPoint targetPos = [self groupCenter];
+    [self focus:targetPos];
+}
+
+- (void)focus:(CGPoint)targetPos{
+    CGSize mapSize = ((SKSpriteNode *)[mapLayer maskNode]).size;
+    CGPoint layerPos = CGPointMake(-targetPos.x*_scale + mapSize.width/2, -targetPos.y*_scale + mapSize.height/2);
+    [baseLayer setPosition:layerPos];
+}
+
+- (void)zoomAction{
+    _scale = targetScale;
+    [baseLayer setScale:_scale];
+}
+
+#pragma mark -
 
 - (void)didSimulatePhysics{
     [self updateRegisteredLeafsAABB];
     [self focusAction];
+    [self zoomAction];
 }
 
 - (void)updateRegisteredLeafsAABB{
@@ -424,31 +510,7 @@ static const uint32_t otherCategory        =  0x1 << 1;
     [nodes removeObjectForKey:[tree key]];
 }
 
-- (void)qtreeDidBeginContact:(QTreeContact *)contact{
-//    TLOG(@"contact -> %@", contact);
-    
-    SKSpriteNode *nodeA = [nodes objectForKey:[contact.leafA key]];
-    SKSpriteNode *nodeB = [nodes objectForKey:[contact.leafB key]];
-    
-    [nodeA setScale:1.5];
-    [nodeB setScale:1.5];
-    
-    
-    
-//    [contact leafA].velocity = CGPointMake([contact leafA].velocity.x*0.5, [contact leafA].velocity.y*0.5);
-//    [contact leafB].velocity = CGPointMake([contact leafB].velocity.x*0.5, [contact leafB].velocity.y*0.5);
-}
 
-- (void)qtreeDidEndContact:(QTreeContact *)contact{
-    SKSpriteNode *nodeA = [nodes objectForKey:[contact.leafA key]];
-    SKSpriteNode *nodeB = [nodes objectForKey:[contact.leafB key]];
-    
-    [nodeA setScale:1.0];
-    [nodeB setScale:1.0];
-    
-//    [contact leafA].velocity = CGPointMake([contact leafA].velocity.x*2, [contact leafA].velocity.y*2);
-//    [contact leafB].velocity = CGPointMake([contact leafB].velocity.x*2, [contact leafB].velocity.y*2);
-}
 
 #pragma mark - SKPhysicsContactDelegate
 

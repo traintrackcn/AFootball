@@ -17,8 +17,6 @@
 - (void)qtreeDidUpdateLeaf:(QTreeLeaf *)leaf;
 - (void)qtreeDidRegisterTree:(QTree *)tree;
 - (void)qtreeDidUnregisterTree:(QTree *)tree;
-- (void)qtreeDidBeginContact:(QTreeContact *)contact;
-- (void)qtreeDidEndContact:(QTreeContact *)contact;
 
 //- (void)qtreeDetectCollide;
 

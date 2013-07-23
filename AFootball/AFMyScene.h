@@ -15,6 +15,5 @@
 
 - (void)zoom;
 
-- (void)focus:(NSString *)key;
 
 @end

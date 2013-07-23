@@ -27,7 +27,6 @@
 		4ADE24791793CD7F004EDA9F /* AFAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE24781793CD7F004EDA9F /* AFAppDelegate.m */; };
 		4ADE24821793CD7F004EDA9F /* AFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE24811793CD7F004EDA9F /* AFViewController.m */; };
 		4ADE24851793CD7F004EDA9F /* AFMyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE24841793CD7F004EDA9F /* AFMyScene.m */; };
-		4ADE24871793CD7F004EDA9F /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ADE24861793CD7F004EDA9F /* Spaceship.png */; };
 		4ADE24891793CD7F004EDA9F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4ADE24881793CD7F004EDA9F /* Images.xcassets */; };
 		4ADE24901793CD7F004EDA9F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADE248F1793CD7F004EDA9F /* XCTest.framework */; };
 		4ADE24911793CD7F004EDA9F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADE24661793CD7F004EDA9F /* Foundation.framework */; };
@@ -76,7 +75,6 @@
 		4ADE24811793CD7F004EDA9F /* AFViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AFViewController.m; sourceTree = "<group>"; };
 		4ADE24831793CD7F004EDA9F /* AFMyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFMyScene.h; sourceTree = "<group>"; };
 		4ADE24841793CD7F004EDA9F /* AFMyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AFMyScene.m; sourceTree = "<group>"; };
-		4ADE24861793CD7F004EDA9F /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
 		4ADE24881793CD7F004EDA9F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4ADE248E1793CD7F004EDA9F /* AFootballTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AFootballTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ADE248F1793CD7F004EDA9F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -173,7 +171,6 @@
 				4ADE24811793CD7F004EDA9F /* AFViewController.m */,
 				4ADE24831793CD7F004EDA9F /* AFMyScene.h */,
 				4ADE24841793CD7F004EDA9F /* AFMyScene.m */,
-				4ADE24861793CD7F004EDA9F /* Spaceship.png */,
 				4ADE24881793CD7F004EDA9F /* Images.xcassets */,
 				4ADE246F1793CD7F004EDA9F /* Supporting Files */,
 			);
@@ -294,7 +291,6 @@
 			files = (
 				4AA6166E1793D68200D88C6C /* spark.png in Resources */,
 				4A258C2A1797D3E00010F660 /* AFField.png in Resources */,
-				4ADE24871793CD7F004EDA9F /* Spaceship.png in Resources */,
 				4A54DD5C179A36D100BF7359 /* bg.atlas in Resources */,
 				4A258C261797C4C50010F660 /* point.png in Resources */,
 				4ADE24891793CD7F004EDA9F /* Images.xcassets in Resources */,
