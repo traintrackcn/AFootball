@@ -25,7 +25,7 @@
     
     [w makeKeyAndVisible];
     
-    
+//    TLOG(@"%@", [[NSBundle mainBundle] pa]);
     
     
     return YES;

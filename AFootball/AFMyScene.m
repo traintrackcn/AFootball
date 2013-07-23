@@ -30,7 +30,9 @@ static const uint32_t otherCategory        =  0x1 << 1;
     
     CGRect bgFrame;
 //    CGSize mapSize;
-    
+    SKTextureAtlas *playerAtlas;
+    NSMutableArray *playerRunUpTextures;
+    NSMutableArray *playerRunDownTextures;
 }
 
 @end
@@ -42,10 +44,11 @@ static const uint32_t otherCategory        =  0x1 << 1;
         /* Setup your scene here */
         
 
-        _scale = 1;
+        targetScale = 1;
         
         
         self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
+        [self initAtlas];
         [self createLayers];
         [self ceateQTreeRootAndDraw];
         [self createLabel];
@@ -66,11 +69,32 @@ static const uint32_t otherCategory        =  0x1 << 1;
 }
 
 
+- (void)initAtlas{
+//    playerAtlas = [SKTextureAtlas atlasNamed:@"link"];
+//    NSMutableArray *textures = [NSMutableArray array];
+    playerRunUpTextures = [NSMutableArray array];
+    playerRunDownTextures = [NSMutableArray array];
+    for (int i=0; i<7; i++) {
+//         SKTexture *t = [playerAtlas textureNamed:[NSString stringWithFormat:@"linkRunUp_%d",i] ];
+        SKTexture *t = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"linkRunUp_%d",i] ];
+        SKTexture *t1 = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"linkRunDown_%d",i] ];
+//        UIImage *img = [UIImage imageNamed:[NSString stringWithFormat:@"linkRunUp_%d",i]];
+//        SKTexture *t = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"linkRunUp_%d",i]];
+        TLOG(@"t %@  w %f h:%f ",t, t.size.width, t.size.height);
+        [playerRunUpTextures addObject:t];
+        [playerRunDownTextures addObject:t1];
+    }
+
+    
+//    SKTexture *t1 = [SKTexture textureWithImageNamed:@"tmp-6"];
+//    TLOG(@"t1 -> %@", t1);
+}
+
 - (void)createLayers{
     mapLayer = [SKCropNode node];
     [self addChild:mapLayer];
     CGSize screenSize = [[UIScreen mainScreen] bounds].size;
-    SKSpriteNode *maskNode = [SKSpriteNode spriteNodeWithColor:[UIColor grayColor] size:CGSizeMake(screenSize.width,screenSize.width)];
+    SKSpriteNode *maskNode = [SKSpriteNode spriteNodeWithColor:[UIColor colorWithRed:33.0/255.0 green:123.0/255.0 blue:0 alpha:1] size:CGSizeMake(screenSize.width,screenSize.width)];
     [maskNode setPosition:CGPointMake(maskNode.size.width/2, maskNode.size.height/2)];
     [mapLayer addChild:maskNode];
     [mapLayer setMaskNode:maskNode];
@@ -221,11 +245,16 @@ static const uint32_t otherCategory        =  0x1 << 1;
 
 - (void)appendLeaf:(CGPoint)pos{
 
+    
     // draw leaf
     
-    SKSpriteNode *node = [SKSpriteNode spriteNodeWithImageNamed:@"point"];
+    SKSpriteNode *node = [SKSpriteNode spriteNodeWithColor:[UIColor blueColor] size:CGSizeMake(16.0, 24.0)];
     node.position = pos;
-    
+//    [node setColor:[UIColor blueColor]];
+//    [node setColorBlendFactor:0.5];
+//    [node  setAnchorPoint:CGPointMake(0, 0)];
+//    SKNode *nodeBg = [SKSpriteNode spriteNodeWithColor:[UIColor blueColor] size:CGSizeMake(16.0, 24.0)];
+//    [node addChild:nodeBg];
 //   TLOG(@"node size: %f %f", node.size.width, node.size.height);
     
     //setup physics body
@@ -248,7 +277,6 @@ static const uint32_t otherCategory        =  0x1 << 1;
     //    [node setHidden:YES];
 //    [node setZRotation:[leaf angle]];   // minus M_PI_2 to fix spirte rotation
     
-    
     [node setPhysicsBody:body];
     [leafLayer addChild:node];
     
@@ -264,6 +292,10 @@ static const uint32_t otherCategory        =  0x1 << 1;
     int count = [[[QTreeRoot sharedInstance] registeredLeafs] count];
     [leafCountLabel setText:[NSString stringWithFormat:@"leaf:%d",count]];
     
+    //actions
+    
+    [self swichLeafAnimation:node towardsUp:YES];
+    
     if (count == 1) {
         focusedLeaf = leaf;
 //        [node setColor:[UIColor blueColor]];
@@ -274,6 +306,18 @@ static const uint32_t otherCategory        =  0x1 << 1;
     
 }
 
+
+- (void)swichLeafAnimation:(SKSpriteNode *)node towardsUp:(BOOL)towardsUp{
+    SKAction *walkAnimation;
+    [node removeActionForKey:@"animation"];
+    if (towardsUp) {
+        walkAnimation = [SKAction animateWithTextures:playerRunUpTextures timePerFrame:0.1];
+    }else{
+        walkAnimation = [SKAction animateWithTextures:playerRunDownTextures timePerFrame:0.1];
+    }
+    walkAnimation = [SKAction repeatActionForever:walkAnimation];
+    [node runAction:walkAnimation withKey:@"animation"];
+}
 
 - (SKSpriteNode *)focusedNode{
     return [nodes objectForKey:[focusedLeaf key]];
@@ -405,7 +449,7 @@ static const uint32_t otherCategory        =  0x1 << 1;
     }
     
     
-    // a little bit more focus area 
+    // a little bit more focus area
     xMax += 20;
     xMin -= 20;
     yMax += 20;
@@ -433,6 +477,7 @@ static const uint32_t otherCategory        =  0x1 << 1;
 
 - (void)focusSingle{
     if (!focusedLeaf) return;
+//    TLOG(@"focus single");
     SKSpriteNode *node = [self focusedNode];
     CGPoint targetPos  = [node position];
     [self focus:targetPos];
@@ -453,6 +498,8 @@ static const uint32_t otherCategory        =  0x1 << 1;
     _scale = targetScale;
     [baseLayer setScale:_scale];
 }
+
+
 
 #pragma mark -
 
@@ -549,10 +596,12 @@ static const uint32_t otherCategory        =  0x1 << 1;
     
     if ([wallBodyName isEqualToString:@"wallT"]) {
         targetBody.velocity = CGPointMake(targetBody.velocity.x, -[self randomVelocityScalar]);
+        [self swichLeafAnimation:(SKSpriteNode *)[targetBody node] towardsUp:NO];
     }
         
     if ([wallBodyName isEqualToString:@"wallB"]) {
         targetBody.velocity = CGPointMake(targetBody.velocity.x, [self randomVelocityScalar]);
+        [self swichLeafAnimation:(SKSpriteNode *)[targetBody node] towardsUp:YES];
     }
     
     
