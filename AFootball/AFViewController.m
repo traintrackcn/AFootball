@@ -34,8 +34,8 @@
 //    NSLog(@"skViewRect w:%f h:%f", skViewRect.size.width);
     
     // Create and configure the scene.
-//    SKScene * scene = [AFMyScene sceneWithSize:skView.bounds.size];
-    SKScene * scene = [AFMyScene sceneWithSize:CGSizeMake(256.0, 256.0)];
+    SKScene * scene = [AFMyScene sceneWithSize:skView.bounds.size];
+//    SKScene * scene = [AFMyScene sceneWithSize:CGSizeMake(256.0, 256.0)];
     scene.scaleMode = SKSceneScaleModeAspectFit;
 //    [scene setAnchorPoint:CGPointMake(10, 10)];
 //    LOG_DEBUG();

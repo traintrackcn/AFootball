@@ -109,6 +109,7 @@ static const uint32_t otherCategory        =  0x1 << 1;
     
     [[QTreeRoot sharedInstance] generateWithFrame:CGRectMake(x, y, w, h)];
     [[QTreeRoot sharedInstance] setDelegate:self];
+    [self drawQTree:[[QTreeRoot sharedInstance] root]];
     CGRect rootFrame = [[[QTreeRoot sharedInstance] root] frame];
     float rootX = rootFrame.origin.x;
     float rootY = rootFrame.origin.y;
@@ -360,8 +361,8 @@ static const uint32_t otherCategory        =  0x1 << 1;
 //    if ([baseLayer actionForKey:@"focus"]) return;
 //    TLOG(@"do focus");
     
-    CGSize halfSize = [[QTreeRoot sharedInstance] halfSize];
-    CGPoint target = CGPointMake(-[node position].x*_scale + halfSize.width, -[node position] .y*_scale + halfSize.height);
+    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    CGPoint target = CGPointMake(-[node position].x*_scale + screenSize.width/2.0, -[node position] .y*_scale + screenSize.height/2.0);
 
 //    SKAction *action = [SKAction moveTo:target duration:0.1];
 //    [action setTimingMode:SKActionTimingEaseOut];
