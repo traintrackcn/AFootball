@@ -12,12 +12,6 @@
 
 @interface QTreeLeaf : NSObject
 
-
-//- (id)initWithFrame:(CGRect)frame;
-//- (void)moveByTimeInterval:(CGFloat)interval;
-//- (void)moveTo:(CGPoint)target;
-//- (CGFloat)angle;
-
 - (void)addParent:(QTree *)parentTree;
 - (NSArray *)allParents;
 - (NSArray *)allParentsKeys;
@@ -26,11 +20,8 @@
 - (void)removeFromParent:(QTree *)parentTree;
 
 
-//@property (nonatomic, assign) CGPoint center;
 @property (nonatomic, assign) CGRect aabb;
 @property (nonatomic, strong) NSString *key;
-//@property (nonatomic, assign) CGPoint velocity;
-//@property (nonatomic, assign) CGFloat radius;
 
 
 

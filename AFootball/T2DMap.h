@@ -17,6 +17,8 @@
 - (void)mapWallTContactNode:(SKNode *)node;
 - (void)mapWallBContactNode:(SKNode *)node;
 
+- (void)mapContactPlayersBetweenNodeA:(SKNode *)nodeA andNodeB:(SKNode *)nodeB;
+
 @end
 
 @interface T2DMap : SKCropNode <QTreeDelegate, SKPhysicsContactDelegate>

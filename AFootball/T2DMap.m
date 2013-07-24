@@ -36,6 +36,7 @@
         
         [self assembleLayers];
         [self assembleTreeRoot];
+        [self setScale:1];
     }
     return self;
 }
@@ -170,6 +171,7 @@
         node = [SKNode node];
         [node setName:wallName];
         body = [SKPhysicsBody bodyWithEdgeFromPoint:start toPoint:end];
+        [body setCategoryBitMask:CategoryWall];
         [body setDynamic:NO];
         [node setPhysicsBody:body];
         [backgroundLayer addChild:node];
@@ -191,20 +193,30 @@
 #pragma mark - aabb methods
 
 - (void)didSimulatePhysics{
-    [self updateRegisteredLeafsAABB];
-//    [self focusAction];
+    [self update];
+    [self focusAction];
 //    [self zoomAction];
 }
 
-- (void)updateRegisteredLeafsAABB{
+- (void)update{
     NSArray *leafs = [[QTreeRoot sharedInstance] registeredLeafs];
     for (int i=0; i<[leafs count];i++) {
         QTreeLeaf *leaf = [leafs objectAtIndex:i];
         SKSpriteNode *node = [self spriteForKey:[leaf key]];
-        CGRect aabb = [self gainAABB:node];
-        [leaf setAabb:aabb];
-        [[QTreeRoot sharedInstance] updateLeaf:leaf];
+        [self updateAABBForLeaf:leaf];
+        [self updateZPositionForNode:node];
     }
+}
+
+- (void)updateAABBForLeaf:(QTreeLeaf *)leaf{
+    SKSpriteNode *node = [self spriteForKey:[leaf key]];
+    CGRect aabb = [self gainAABB:node];
+    [leaf setAabb:aabb];
+    [[QTreeRoot sharedInstance] updateLeaf:leaf];
+}
+
+- (void)updateZPositionForNode:(SKNode *)node{
+    [node setZPosition:[node position].y];
 }
 
 - (CGRect)gainAABB:(SKNode *)node{
@@ -224,7 +236,7 @@
     QTreeLeaf *leaf;
     SKSpriteNode *sprite;
     if ([leafs count]==0) {
-        return CGPointZero;
+        return CGPointMake(treeSize.width/2.0, treeSize.height/2.0);
     }
     
     if ([leafs count] == 1) {
@@ -329,6 +341,37 @@
 }
 
 
+#pragma mark - contacts
+
+- (void)contactBetweenWall:(SKPhysicsBody *)wall andPlayer:(SKPhysicsBody *)player{
+    NSString *wallName = [[wall node] name];
+    if ([wallName isEqualToString:@"wallL"]) {
+        if ([_delegate respondsToSelector:@selector(mapWallLContactNode:)]) {
+            [_delegate mapWallLContactNode:[player node]];
+        }
+    }else if ([wallName isEqualToString:@"wallR"]) {
+        if ([_delegate respondsToSelector:@selector(mapWallRContactNode:)]) {
+            [_delegate mapWallRContactNode:[player node]];
+        }
+    }else if ([wallName isEqualToString:@"wallT"]) {
+        if ([_delegate respondsToSelector:@selector(mapWallTContactNode:)]) {
+            [_delegate mapWallTContactNode:[player node]];
+        }
+    }else if ([wallName isEqualToString:@"wallB"]) {
+        if ([_delegate respondsToSelector:@selector(mapWallBContactNode:)]) {
+            [_delegate mapWallBContactNode:[player node]];
+        }
+    }
+}
+
+
+- (void)contactBetweenPlayerA:(SKPhysicsBody *)playerA andPlayerB:(SKPhysicsBody *)playerB{
+//    TLOG(@"");
+    if ([_delegate respondsToSelector:@selector(mapContactPlayersBetweenNodeA:andNodeB:)]) {
+        [_delegate mapContactPlayersBetweenNodeA:[playerA node] andNodeB:[playerB node]];
+    }
+}
+
 
 #pragma mark - QTreeDelegate
 
@@ -342,12 +385,12 @@
 }
 
 - (void)qtreeDidRegisterTree:(QTree *)tree{
-    return;
+//    return;
     [self addNodeForTree:tree];
 }
 
 - (void)qtreeDidUnregisterTree:(QTree *)tree{
-    return;
+//    return;
     [self removeNodeForKey:[tree key]];
 }
 
@@ -356,50 +399,38 @@
 #pragma mark - SKPhysicsContactDelegate
 
 - (void)didBeginContact:(SKPhysicsContact *)contact{
-//    TLOG(@"contact -> %@ %@", contact.bodyA.node.name, contact.bodyB.node.name);
-    NSString *bodyAName = [[[contact bodyA] node] name];
-    NSString *bodyBName = [[[contact bodyB] node] name];
+//    TLOG(@"contact -> %d %d", contact.bodyA.categoryBitMask, contact.bodyB.categoryBitMask);
     SKPhysicsBody *bodyA = [contact bodyA];
     SKPhysicsBody *bodyB = [contact bodyB];
-    
-    SKPhysicsBody *wallBody;
-    NSString *wallBodyName;
-    SKPhysicsBody *targetBody;
-    
-    if ([bodyAName rangeOfString:@"wall"].location != NSNotFound) {
-        wallBody = bodyA;
-        wallBodyName = bodyAName;
-        targetBody = bodyB;
-    }else if([bodyBName rangeOfString:@"wall"].location != NSNotFound){
-        wallBody = bodyB;
-        wallBodyName = bodyBName;
-        targetBody = bodyA;
+    int bodyACategory = [bodyA categoryBitMask];
+    int bodyBCategory = [bodyB categoryBitMask];
+
+    if (bodyACategory == CategoryWall && bodyBCategory == CategoryPlayer) {
+        [self contactBetweenWall:bodyA andPlayer:bodyB];
+        return;
     }
     
-    if (wallBody==nil) return;
-    
-    if ([wallBodyName isEqualToString:@"wallL"]) {
-        if ([_delegate respondsToSelector:@selector(mapWallLContactNode:)]) {
-            [_delegate mapWallLContactNode:[targetBody node]];
-        }
-    }else if ([wallBodyName isEqualToString:@"wallR"]) {
-        if ([_delegate respondsToSelector:@selector(mapWallRContactNode:)]) {
-            [_delegate mapWallRContactNode:[targetBody node]];
-        }
-    }else if ([wallBodyName isEqualToString:@"wallT"]) {
-        if ([_delegate respondsToSelector:@selector(mapWallTContactNode:)]) {
-            [_delegate mapWallTContactNode:[targetBody node]];
-        }
-    }else if ([wallBodyName isEqualToString:@"wallB"]) {
-        if ([_delegate respondsToSelector:@selector(mapWallBContactNode:)]) {
-            [_delegate mapWallBContactNode:[targetBody node]];
-        }
+    if (bodyBCategory == CategoryWall && bodyACategory == CategoryPlayer) {
+        [self contactBetweenWall:bodyB andPlayer:bodyA];
+        return;
     }
+    
+    if (bodyBCategory == CategoryPlayer && bodyACategory == CategoryPlayer) {
+        [self contactBetweenPlayerA:bodyA andPlayerB:bodyB];
+        return;
+    }
+    
+   
+    
+
     
 }
 
 - (void)didEndContact:(SKPhysicsContact *)contact{
-    
+//    SKPhysicsBody *bodyA = [contact bodyA];
+//    SKPhysicsBody *bodyB = [contact bodyB];
+//    int bodyACategory = [bodyA categoryBitMask];
+//    int bodyBCategory = [bodyB categoryBitMask];
 }
 
 

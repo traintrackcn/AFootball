@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1E11404220A74C73828490AE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BD51216E0AE428C990DFE5C /* libPods.a */; };
+		4A0D73AF179F9C450074C6C4 /* AFPlayerNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A0D73AE179F9C450074C6C4 /* AFPlayerNode.m */; };
 		4A258C261797C4C50010F660 /* point.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A258C251797C4C50010F660 /* point.png */; };
 		4A258C291797D3E00010F660 /* AFField@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A258C271797D3E00010F660 /* AFField@2x.png */; };
 		4A258C2A1797D3E00010F660 /* AFField.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A258C281797D3E00010F660 /* AFField.png */; };
@@ -54,6 +55,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A0D73AD179F9C450074C6C4 /* AFPlayerNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFPlayerNode.h; sourceTree = "<group>"; };
+		4A0D73AE179F9C450074C6C4 /* AFPlayerNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFPlayerNode.m; sourceTree = "<group>"; };
+		4A0D73B0179FA7CF0074C6C4 /* AFCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFCategory.h; sourceTree = "<group>"; };
 		4A258C251797C4C50010F660 /* point.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = point.png; sourceTree = "<group>"; };
 		4A258C271797D3E00010F660 /* AFField@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AFField@2x.png"; sourceTree = "<group>"; };
 		4A258C281797D3E00010F660 /* AFField.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AFField.png; sourceTree = "<group>"; };
@@ -208,6 +212,9 @@
 		4ADE246E1793CD7F004EDA9F /* AFootball */ = {
 			isa = PBXGroup;
 			children = (
+				4A0D73B0179FA7CF0074C6C4 /* AFCategory.h */,
+				4A0D73AD179F9C450074C6C4 /* AFPlayerNode.h */,
+				4A0D73AE179F9C450074C6C4 /* AFPlayerNode.m */,
 				4ADE24771793CD7F004EDA9F /* AFAppDelegate.h */,
 				4ADE24781793CD7F004EDA9F /* AFAppDelegate.m */,
 				4ADE24801793CD7F004EDA9F /* AFViewController.h */,
@@ -372,6 +379,7 @@
 				4A89FB7417966C07001C7A19 /* QTree.m in Sources */,
 				4ADE24851793CD7F004EDA9F /* AFMyScene.m in Sources */,
 				4A89FB7517966C07001C7A19 /* QTreeLeaf.m in Sources */,
+				4A0D73AF179F9C450074C6C4 /* AFPlayerNode.m in Sources */,
 				4ADE24821793CD7F004EDA9F /* AFViewController.m in Sources */,
 				4A54DD4E1798EF8200BF7359 /* QTreeContact.m in Sources */,
 				4ADE24791793CD7F004EDA9F /* AFAppDelegate.m in Sources */,

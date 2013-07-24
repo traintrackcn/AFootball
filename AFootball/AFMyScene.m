@@ -8,10 +8,10 @@
 
 #import "AFMyScene.h"
 #import "T2DMap.h"
+#import "AFPlayerNode.h"
 
 
-static const uint32_t leafCategory        =  0x1 << 0;
-static const uint32_t otherCategory        =  0x1 << 1;
+
 
 @interface AFMyScene(){
     SKLabelNode *leafCountLabel;
@@ -83,57 +83,38 @@ static const uint32_t otherCategory        =  0x1 << 1;
 
 #pragma mark - leaf operators
 
-- (CGFloat)randomVelocityScalar{
-    return (arc4random() % 20) + 10;
-}
 
-- (void)appendNode:(CGPoint)pos{
-
-    SKSpriteNode *node = [SKSpriteNode spriteNodeWithColor:[UIColor blueColor] size:CGSizeMake(16.0, 24.0)];
-    node.position = pos;
-    
-    //setup physics body
-    SKPhysicsBody *body = [SKPhysicsBody bodyWithRectangleOfSize:node.size];
-    [body setAffectedByGravity:NO];
-    [body setDynamic:YES];
-    [body setAllowsRotation:NO];
-    [body setCategoryBitMask:leafCategory];
-    [body setContactTestBitMask:leafCategory];
-    [body setCollisionBitMask:otherCategory];
-    CGPoint v;
-    v.x = [self randomVelocityScalar];
-    v.y = [self randomVelocityScalar];
-    [body setVelocity:v];
-    [body setFriction:0];
-    [body setLinearDamping:0];
-//    [body setRestitution:1];
-    //    [node setScale:0.1];
-    //    [node setPaused:YES];
-    //    [node setHidden:YES];
-//    [node setZRotation:[leaf angle]];   // minus M_PI_2 to fix spirte rotation
-    
-    [node setPhysicsBody:body];
-    
+- (void)appendPlayer:(CGPoint)pos{
+    AFPlayerNode *node = [[AFPlayerNode alloc] initWithSize:CGSizeMake(16.0, 24.0)];
+    [node setPosition:pos];
+    [node setVelocity:CGPointMake([self randomVelocityScalar], [self randomVelocityScalar])];
     [map addNode:node];
+    [node playAnimation:playerRunUpTextures repeat:YES];
+    
+    [self updateLabel];
+}
+
+- (void)updateLabel{
     [leafCountLabel setText:[NSString stringWithFormat:@"leaf:%d",[map leafCount]]];
-    
-    //actions
-    
-    [self swichLeafAnimation:node towardsUp:YES];
-    
 }
 
 
-- (void)swichLeafAnimation:(SKSpriteNode *)node towardsUp:(BOOL)towardsUp{
-    SKAction *walkAnimation;
-    [node removeActionForKey:@"animation"];
-    if (towardsUp) {
-        walkAnimation = [SKAction animateWithTextures:playerRunUpTextures timePerFrame:0.1];
+- (void)reverseUpDownForNode:(SKNode *)node{
+    SKPhysicsBody *body = [node physicsBody];
+    AFPlayerNode *playerNode = (AFPlayerNode *)node;
+    if ([self isMovingUp:body]) {
+        [playerNode setVelocity:CGPointMake(body.velocity.x, -[self randomVelocityScalar])];
+        [playerNode playAnimation:playerRunDownTextures repeat:YES];
     }else{
-        walkAnimation = [SKAction animateWithTextures:playerRunDownTextures timePerFrame:0.1];
+        [playerNode setVelocity:CGPointMake(body.velocity.x, [self randomVelocityScalar])];
+        [playerNode playAnimation:playerRunUpTextures repeat:YES];
     }
-    walkAnimation = [SKAction repeatActionForever:walkAnimation];
-    [node runAction:walkAnimation withKey:@"animation"];
+}
+
+
+- (BOOL)isMovingUp:(SKPhysicsBody *)body{
+    if (body.velocity.y > 0)  return YES;
+    return NO;
 }
 
 //- (void)logLeafsDetails{
@@ -145,7 +126,11 @@ static const uint32_t otherCategory        =  0x1 << 1;
 //    TLOG(@"------------------------------");
 //}
 
-- (void)appendRandomLeaf{
+- (CGFloat)randomVelocityScalar{
+    return (arc4random() % 20) + 10;
+}
+
+- (void)appendRandomPlayers{
     
     if ([map leafCount]>0)  return;
     
@@ -156,7 +141,7 @@ static const uint32_t otherCategory        =  0x1 << 1;
     for (int i=0; i<leafCount; i++) {
         location.x = arc4random()% bgW + bgFrame.origin.x;
         location.y = arc4random()%240+6;
-        [self appendNode:location];
+        [self appendPlayer:location];
     }
 }
 
@@ -174,7 +159,7 @@ static const uint32_t otherCategory        =  0x1 << 1;
         
 //        CGPoint location = [touch locationInNode:self];
 
-        [self appendRandomLeaf];
+        [self appendRandomPlayers];
     }
 }
 
@@ -188,27 +173,43 @@ static const uint32_t otherCategory        =  0x1 << 1;
 #pragma mark - T2DMapDelegate
 
 - (void)mapWallBContactNode:(SKNode *)node{
-    SKPhysicsBody *body = [node physicsBody];
-    body.velocity = CGPointMake(body.velocity.x, [self randomVelocityScalar]);
-    [self swichLeafAnimation:(SKSpriteNode *)node towardsUp:YES];
+//    SKPhysicsBody *body = [node physicsBody];
+//    AFPlayerNode *playerNode = (AFPlayerNode *)node;
+//    [playerNode setVelocity:CGPointMake(body.velocity.x, [self randomVelocityScalar])];
+//    [playerNode playAnimation:playerRunUpTextures repeat:YES];
+    
+     [self reverseUpDownForNode:node];
 }
 
 - (void)mapWallTContactNode:(SKNode *)node{
-    SKPhysicsBody *body = [node physicsBody];
-    body.velocity = CGPointMake(body.velocity.x, -[self randomVelocityScalar]);
-    [self swichLeafAnimation:(SKSpriteNode *)node towardsUp:NO];
+//    SKPhysicsBody *body = [node physicsBody];
+//    AFPlayerNode *playerNode = (AFPlayerNode *)node;
+//    [playerNode setVelocity:CGPointMake(body.velocity.x, -[self randomVelocityScalar])];
+//    [playerNode playAnimation:playerRunDownTextures repeat:YES];
     
+    [self reverseUpDownForNode:node];
 }
 
 - (void)mapWallLContactNode:(SKNode *)node{
     SKPhysicsBody *body = [node physicsBody];
-    body.velocity = CGPointMake(-[self randomVelocityScalar], body.velocity.y);
+    AFPlayerNode *playerNode = (AFPlayerNode *)node;
+    [playerNode setVelocity:CGPointMake(-[self randomVelocityScalar], body.velocity.y)];
 }
 
 - (void)mapWallRContactNode:(SKNode *)node{
     SKPhysicsBody *body = [node physicsBody];
-    body.velocity = CGPointMake([self randomVelocityScalar], body.velocity.y);
+    AFPlayerNode *playerNode = (AFPlayerNode *)node;
+    [playerNode setVelocity:CGPointMake([self randomVelocityScalar], body.velocity.y)];
 }
+
+- (void)mapContactPlayersBetweenNodeA:(SKNode *)nodeA andNodeB:(SKNode *)nodeB{
+//    [self reverseUpDownForNode:nodeA];
+//    [self reverseUpDownForNode:nodeB];
+}
+
+
+
+#pragma mark - 
 
 
 
