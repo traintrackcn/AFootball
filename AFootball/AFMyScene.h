@@ -7,13 +7,8 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-#import "QTreeRoot.h"
+#import "T2DMap.h"
 
-@interface AFMyScene : SKScene <QTreeDelegate, SKPhysicsContactDelegate>
-
-
-
-- (void)zoom;
-
+@interface AFMyScene : SKScene <T2DMapDelegate>
 
 @end

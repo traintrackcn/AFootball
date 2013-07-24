@@ -40,6 +40,7 @@
 		4A89FB7B17968E89001C7A19 /* QTreeRoot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A89FB7A17968A3B001C7A19 /* QTreeRoot.m */; };
 		4AA6166D1793D68200D88C6C /* MyParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4AA6166B1793D68200D88C6C /* MyParticle.sks */; };
 		4AA6166E1793D68200D88C6C /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AA6166C1793D68200D88C6C /* spark.png */; };
+		4AAC6C5B179E99E100B89FF6 /* T2DMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC6C5A179E99E100B89FF6 /* T2DMap.m */; };
 		4ADE24671793CD7F004EDA9F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADE24661793CD7F004EDA9F /* Foundation.framework */; };
 		4ADE24691793CD7F004EDA9F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADE24681793CD7F004EDA9F /* CoreGraphics.framework */; };
 		4ADE246B1793CD7F004EDA9F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADE246A1793CD7F004EDA9F /* UIKit.framework */; };
@@ -89,6 +90,8 @@
 		4A89FB7A17968A3B001C7A19 /* QTreeRoot.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QTreeRoot.m; sourceTree = "<group>"; };
 		4AA6166B1793D68200D88C6C /* MyParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyParticle.sks; sourceTree = "<group>"; };
 		4AA6166C1793D68200D88C6C /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		4AAC6C59179E99E100B89FF6 /* T2DMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = T2DMap.h; sourceTree = "<group>"; };
+		4AAC6C5A179E99E100B89FF6 /* T2DMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = T2DMap.m; sourceTree = "<group>"; };
 		4ADE24631793CD7F004EDA9F /* AFootball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AFootball.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ADE24661793CD7F004EDA9F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4ADE24681793CD7F004EDA9F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -209,6 +212,8 @@
 				4ADE24781793CD7F004EDA9F /* AFAppDelegate.m */,
 				4ADE24801793CD7F004EDA9F /* AFViewController.h */,
 				4ADE24811793CD7F004EDA9F /* AFViewController.m */,
+				4AAC6C59179E99E100B89FF6 /* T2DMap.h */,
+				4AAC6C5A179E99E100B89FF6 /* T2DMap.m */,
 				4ADE24831793CD7F004EDA9F /* AFMyScene.h */,
 				4ADE24841793CD7F004EDA9F /* AFMyScene.m */,
 				4ADE246F1793CD7F004EDA9F /* Supporting Files */,
@@ -363,6 +368,7 @@
 			files = (
 				4A89FB7B17968E89001C7A19 /* QTreeRoot.m in Sources */,
 				4ADE24751793CD7F004EDA9F /* main.m in Sources */,
+				4AAC6C5B179E99E100B89FF6 /* T2DMap.m in Sources */,
 				4A89FB7417966C07001C7A19 /* QTree.m in Sources */,
 				4ADE24851793CD7F004EDA9F /* AFMyScene.m in Sources */,
 				4A89FB7517966C07001C7A19 /* QTreeLeaf.m in Sources */,
@@ -469,7 +475,7 @@
 				GCC_PREFIX_HEADER = "AFootball/AFootball-Prefix.pch";
 				INFOPLIST_FILE = "AFootball/AFootball-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = NO;
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -485,7 +491,7 @@
 				GCC_PREFIX_HEADER = "AFootball/AFootball-Prefix.pch";
 				INFOPLIST_FILE = "AFootball/AFootball-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = NO;
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
