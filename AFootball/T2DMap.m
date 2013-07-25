@@ -20,6 +20,7 @@
     CGSize treeSize; // w == h && power of 2
     CGSize mapSize;
     NSMutableDictionary *nodes;
+    BOOL zooming;
 }
 
 @end
@@ -208,6 +209,10 @@
     for (int i=0; i<[leafs count];i++) {
         QTreeLeaf *leaf = [leafs objectAtIndex:i];
         SKSpriteNode *node = [self spriteForKey:[leaf key]];
+//        if ([node physicsBody].velocity.y!=0) {
+//            [[node physicsBody] applyForce:CGPointMake(0, 0.04)];
+//            TLOG(@"velocity %f", node.physicsBody.velocity.y);
+//        }
         [self updateAABBForLeaf:leaf];
         [self updateZPositionForNode:node];
     }
@@ -291,6 +296,9 @@
     float scaleY = mapSize.height/distanceY;
     //    TLOG(@"scaleX %f  mapSize.width %f distanceX %f", scaleX, mapSize.width, distanceX);
     targetScale = scaleX>scaleY?scaleY:scaleX;
+//    TLOG(@"targetScale %f fixedTargetScalle %f", targetScale, floorf(targetScale*2)/2);
+    targetScale = floorf(targetScale*5)/5;
+    
     
     return CGPointMake(x, y);
 }
@@ -305,32 +313,42 @@
     [baseLayer setPosition:layerPos];
 }
 
+- (BOOL)needZoom{
+    if (targetScale != [self scale]) {
+        return YES;
+    }
+    return NO;
+}
+
 - (void)zoomAction{
-    [self setScale:targetScale];
+    if (![self needZoom]) return;
+    if (zooming) return;
+    
+    zooming = YES;
+    CGFloat tmpTargetScale = targetScale;
+    CGFloat tmpScale = [self scale];
+    CGFloat scaleOffset = (tmpTargetScale - tmpScale);
+//    TLOG(@"zoomAction targetScale -> %f [self scale] -> %f", targetScale,[self scale]);
+    CGFloat duration = 0.8;
+    SKAction *action = [SKAction customActionWithDuration:duration actionBlock:^(SKNode *node, CGFloat elapsedTime) {
+        CGFloat percent = elapsedTime/duration;
+        CGFloat scale = scaleOffset*percent+tmpScale;
+        [self setScale:scale];
+    }];
+    
+    [baseLayer runAction:action completion:^{
+        zooming = NO;
+    }];
+    
+//    [self setScale:targetScale];
 }
 
 
 - (SKNode *)touchedNode:(UITouch *)touch{
     CGPoint pos = [touch locationInNode:baseLayer];
-//    NSArray *touchedNodes = [baseLayer nodesAtPoint:pos];
     SKNode *node = [baseLayer nodeAtPoint:pos];
-//    TLOG(@"%@", [baseLayer nodeAtPoint:pos])
-    
-    if ([[node parent] isKindOfClass:([AFPlayerNode class])]) {
-        return [node parent];
-    }
-    
-    if ([node isKindOfClass:([AFPlayerNode class])]) {
-        return node;
-    }
-    
-    
-//    for (int i=0; i<[touchedNodes count]; i++) {
-//        SKNode *node = [touchedNodes objectAtIndex:i];
-////        TLOG(@"category -> %d", [node physicsBody].categoryBitMask);
-//    }
-    
-    
+    if ([[node parent] isKindOfClass:([AFPlayerNode class])])  return [node parent];
+    if ([node isKindOfClass:([AFPlayerNode class])])  return node;
     return nil;
 }
 

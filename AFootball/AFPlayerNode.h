@@ -7,8 +7,9 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "T2DMapNode.h"
 
-@interface AFPlayerNode : SKNode
+@interface AFPlayerNode : T2DMapNode
 
 - (id)initWithSize:(CGSize)size;
 - (void)setVelocity:(CGPoint)velocity;

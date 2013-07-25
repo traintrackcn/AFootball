@@ -39,6 +39,7 @@
         [self assembleMap];
         
 //        [self assembleBall];
+        [self appendRandomPlayers];
     }
     return self;
 }
@@ -115,10 +116,10 @@
     [node setPosition:pos];
     
     if (pos.y>100) {
-//        [node setVelocity:CGPointMake(0, -[self randomVelocityScalar])];
+        [node setVelocity:CGPointMake(0, -[self randomVelocityScalar])];
         [node playAnimation:playerRunDownTextures repeat:YES];
     }else{
-//        [node setVelocity:CGPointMake(0, [self randomVelocityScalar])];
+        [node setVelocity:CGPointMake(0, [self randomVelocityScalar])];
 //        TLOG(@"mass -> %f area -> %f", [node physicsBody].mass, [node physicsBody].area);
 //        [[node physicsBody] applyImpulse:CGPointMake(0, 50)];
         [node playAnimation:playerRunUpTextures repeat:YES];
@@ -183,8 +184,8 @@
         CGFloat offsetY = 2;
         
         [self appendPlayer:CGPointMake(playerX, 12+offsetY)];
-        [self appendPlayer:CGPointMake(playerX, (24+offsetY))];
-//        [self appendPlayer:CGPointMake(playerX, bgH-(12+offsetY))];
+//        [self appendPlayer:CGPointMake(playerX, (24+offsetY))];
+        [self appendPlayer:CGPointMake(playerX, bgH-(16+offsetY))];
         
     }
 }
@@ -201,8 +202,11 @@
             return;
         }
         
-        AFPlayerNode *node = (AFPlayerNode *)[map touchedNode:touch];
-        [[node physicsBody] setVelocity:CGPointMake(0, 10)];
+//        AFPlayerNode *node = (AFPlayerNode *)[map touchedNode:touch];
+//        SKPhysicsBody *body = [node physicsBody];
+//        [[node physicsBody] setVelocity:CGPointMake(0, 10)];
+//        [body applyImpulse:CGPointMake(0, 0.404)];
+//        [body applyForce:CGPointMake(0, 0.04)];
 //        TLOG(@"touchedNode %@", );
 
         [self appendRandomPlayers];
