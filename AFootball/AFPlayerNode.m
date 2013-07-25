@@ -48,7 +48,8 @@
     [physicsBody setAllowsRotation:NO];
     [physicsBody setCategoryBitMask:CategoryPlayer];
     [physicsBody setContactTestBitMask:CategoryPlayer|CategoryWall];
-    [physicsBody setCollisionBitMask:CategoryPlayer|CategoryWall];
+//    [physicsBody setCollisionBitMask:CategoryPlayer|CategoryWall];
+    [physicsBody setCollisionBitMask:CategoryNull];
     [physicsBody setFriction:0];
     [physicsBody setVelocity:CGPointMake(0, 0)];
     [physicsBody setLinearDamping:0];

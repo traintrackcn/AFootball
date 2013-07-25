@@ -116,10 +116,10 @@
     [node setPosition:pos];
     
     if (pos.y>100) {
-        [node setVelocity:CGPointMake(0, -[self randomVelocityScalar])];
+        [node setVelocity:CGPointMake([self randomVelocityScalar], -[self randomVelocityScalar])];
         [node playAnimation:playerRunDownTextures repeat:YES];
     }else{
-        [node setVelocity:CGPointMake(0, [self randomVelocityScalar])];
+        [node setVelocity:CGPointMake([self randomVelocityScalar], [self randomVelocityScalar])];
 //        TLOG(@"mass -> %f area -> %f", [node physicsBody].mass, [node physicsBody].area);
 //        [[node physicsBody] applyImpulse:CGPointMake(0, 50)];
         [node playAnimation:playerRunUpTextures repeat:YES];
@@ -281,11 +281,7 @@
 //    [self reverseUpDownForNode:nodeB];
 }
 
-- (void)restoreLastContact{
-    TLOG(@"restoreLastContact");
-    [oldNodeA setPosition:oldPointA];
-    [oldNodeB setPosition:oldPointB];
-}
+
 
 #pragma mark - 
 

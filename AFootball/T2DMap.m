@@ -20,7 +20,8 @@
     CGSize treeSize; // w == h && power of 2
     CGSize mapSize;
     NSMutableDictionary *nodes;
-    BOOL zooming;
+    BOOL cameraZooming;
+    BOOL cameraMoving;
 }
 
 @end
@@ -282,10 +283,10 @@
     
     
     // a little bit more focus area
-    xMax += 20;
-    xMin -= 20;
-    yMax += 20;
-    yMin -= 20;
+    xMax += 40;
+    xMin -= 40;
+    yMax += 40;
+    yMin -= 40;
     
     float x = (xMax-xMin)/2.0 + xMin;
     float y = (yMax - yMin)/2.0 + yMin;
@@ -297,23 +298,48 @@
     //    TLOG(@"scaleX %f  mapSize.width %f distanceX %f", scaleX, mapSize.width, distanceX);
     targetScale = scaleX>scaleY?scaleY:scaleX;
 //    TLOG(@"targetScale %f fixedTargetScalle %f", targetScale, floorf(targetScale*2)/2);
-    targetScale = floorf(targetScale*5)/5;
+    targetScale = floorf(targetScale*10)/10;
     
     
     return CGPointMake(x, y);
 }
 
-- (void)focusAction{
-    CGPoint pos = [self groupCenter];
-    [self focus:pos];
+
+- (CGPoint)baseLayerPositionForCenterPoint:(CGPoint)pos{
+    return CGPointMake(-pos.x*[self scale] + mapSize.width/2, -pos.y*[self scale] + mapSize.height/2);
 }
 
-- (void)focus:(CGPoint)pos{
-    CGPoint layerPos = CGPointMake(-pos.x*[self scale] + mapSize.width/2, -pos.y*[self scale] + mapSize.height/2);
-    [baseLayer setPosition:layerPos];
+- (BOOL)needFocus{
+    CGPoint p2 = [self baseLayerPositionForCenterPoint:[self groupCenter]];
+    CGPoint p1 = [baseLayer position];
+    CGFloat xDist = (p2.x - p1.x); //[2]
+    CGFloat yDist = (p2.y - p1.y); //[3]
+    CGFloat distance = sqrt((xDist * xDist) + (yDist * yDist)); //[4]
+//    TLOG(@"distance -> %f", distance);
+    if (distance >= 10) {
+        return YES;
+    }
+    return NO;
 }
+
+
+- (void)focusAction{
+    if (![self needFocus]) return;
+    if (cameraMoving) return;
+    cameraMoving = YES;
+    CGPoint targetLayerPos = [self baseLayerPositionForCenterPoint:[self groupCenter]];
+    CGFloat duration = 0.5;
+    SKAction *action = [SKAction moveTo:targetLayerPos duration:duration];
+    [action setTimingMode:SKActionTimingEaseIn];
+    [baseLayer runAction:action completion:^{
+        cameraMoving = NO;
+    }];
+}
+
+
 
 - (BOOL)needZoom{
+    
     if (targetScale != [self scale]) {
         return YES;
     }
@@ -322,9 +348,9 @@
 
 - (void)zoomAction{
     if (![self needZoom]) return;
-    if (zooming) return;
+    if (cameraZooming) return;
     
-    zooming = YES;
+    cameraZooming = YES;
     CGFloat tmpTargetScale = targetScale;
     CGFloat tmpScale = [self scale];
     CGFloat scaleOffset = (tmpTargetScale - tmpScale);
@@ -335,9 +361,10 @@
         CGFloat scale = scaleOffset*percent+tmpScale;
         [self setScale:scale];
     }];
+    [action setTimingMode:SKActionTimingEaseIn];
     
     [baseLayer runAction:action completion:^{
-        zooming = NO;
+        cameraZooming = NO;
     }];
     
 //    [self setScale:targetScale];
