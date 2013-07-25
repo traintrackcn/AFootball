@@ -20,6 +20,11 @@
     NSMutableArray *playerRunUpTextures;
     NSMutableArray *playerRunDownTextures;
     T2DMap *map;
+    
+    CGPoint oldPointA;
+    CGPoint oldPointB;
+    SKNode *oldNodeA;
+    SKNode *oldNodeB;
 }
 
 @end
@@ -32,8 +37,28 @@
         [self initAtlas];
         [self createLabel];
         [self assembleMap];
+        
+//        [self assembleBall];
     }
     return self;
+}
+
+- (void)assembleBall{
+    SKSpriteNode *node = [SKSpriteNode spriteNodeWithColor:[UIColor greenColor] size:CGSizeMake(10, 10)];
+    SKPhysicsBody *physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:node.size];
+    [node  setPosition:CGPointMake(100, 200)];
+    //    physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(0, 0, self.size.width/2, self.size.height/2)];
+    [physicsBody setDynamic:YES];
+    [physicsBody setCategoryBitMask:CategoryBall];
+    [physicsBody setContactTestBitMask:CategoryWall];
+    [physicsBody setCollisionBitMask:CategoryWall];
+    [physicsBody setFriction:0.5];
+//    [physicsBody setVelocity:CGPointMake(0, 0)];
+    [physicsBody setRestitution:0.9];
+    [physicsBody setMass:0.01];
+    [physicsBody setLinearDamping:0.9];
+    [node setPhysicsBody:physicsBody];
+    [map addChild:node];
 }
 
 - (void)assembleMap{
@@ -43,6 +68,7 @@
     [map setDelegate:self];
     [self addChild:map];
     [[self physicsWorld] setContactDelegate:map];
+    [[self physicsWorld] setGravity:CGPointMake(0, -9.8)];
     
 }
 
@@ -87,9 +113,20 @@
 - (void)appendPlayer:(CGPoint)pos{
     AFPlayerNode *node = [[AFPlayerNode alloc] initWithSize:CGSizeMake(16.0, 24.0)];
     [node setPosition:pos];
-    [node setVelocity:CGPointMake([self randomVelocityScalar], [self randomVelocityScalar])];
+    
+    if (pos.y>100) {
+//        [node setVelocity:CGPointMake(0, -[self randomVelocityScalar])];
+        [node playAnimation:playerRunDownTextures repeat:YES];
+    }else{
+//        [node setVelocity:CGPointMake(0, [self randomVelocityScalar])];
+//        TLOG(@"mass -> %f area -> %f", [node physicsBody].mass, [node physicsBody].area);
+//        [[node physicsBody] applyImpulse:CGPointMake(0, 50)];
+        [node playAnimation:playerRunUpTextures repeat:YES];
+    }
+    
+    
     [map addNode:node];
-    [node playAnimation:playerRunUpTextures repeat:YES];
+    
     
     [self updateLabel];
 }
@@ -127,21 +164,28 @@
 //}
 
 - (CGFloat)randomVelocityScalar{
-    return (arc4random() % 20) + 10;
+//    return 0;
+    return (arc4random() % 20) + 20;
 }
 
 - (void)appendRandomPlayers{
     
     if ([map leafCount]>0)  return;
     
-    CGPoint location = CGPointZero;
-    int leafCount = 10;
+    int leafCount = 5;
     CGRect bgFrame = [map largeBackgroundFrame];
-    int bgW = bgFrame.size.width;
+    CGFloat bgX = bgFrame.origin.x;
+//    CGFloat bgW = bgFrame.size.width;
+    CGFloat bgH = bgFrame.size.height;
+//    TLOG(@"bgW -> %f", bgW);
     for (int i=0; i<leafCount; i++) {
-        location.x = arc4random()% bgW + bgFrame.origin.x;
-        location.y = arc4random()%240+6;
-        [self appendPlayer:location];
+        CGFloat playerX = bgX+24*i+12;
+        CGFloat offsetY = 2;
+        
+        [self appendPlayer:CGPointMake(playerX, 12+offsetY)];
+        [self appendPlayer:CGPointMake(playerX, (24+offsetY))];
+//        [self appendPlayer:CGPointMake(playerX, bgH-(12+offsetY))];
+        
     }
 }
 
@@ -157,7 +201,9 @@
             return;
         }
         
-//        CGPoint location = [touch locationInNode:self];
+        AFPlayerNode *node = (AFPlayerNode *)[map touchedNode:touch];
+        [[node physicsBody] setVelocity:CGPointMake(0, 10)];
+//        TLOG(@"touchedNode %@", );
 
         [self appendRandomPlayers];
     }
@@ -173,20 +219,12 @@
 #pragma mark - T2DMapDelegate
 
 - (void)mapWallBContactNode:(SKNode *)node{
-//    SKPhysicsBody *body = [node physicsBody];
-//    AFPlayerNode *playerNode = (AFPlayerNode *)node;
-//    [playerNode setVelocity:CGPointMake(body.velocity.x, [self randomVelocityScalar])];
-//    [playerNode playAnimation:playerRunUpTextures repeat:YES];
-    
+//    TLOG(@"");
      [self reverseUpDownForNode:node];
 }
 
 - (void)mapWallTContactNode:(SKNode *)node{
-//    SKPhysicsBody *body = [node physicsBody];
-//    AFPlayerNode *playerNode = (AFPlayerNode *)node;
-//    [playerNode setVelocity:CGPointMake(body.velocity.x, -[self randomVelocityScalar])];
-//    [playerNode playAnimation:playerRunDownTextures repeat:YES];
-    
+//     TLOG(@"");
     [self reverseUpDownForNode:node];
 }
 
@@ -202,12 +240,48 @@
     [playerNode setVelocity:CGPointMake([self randomVelocityScalar], body.velocity.y)];
 }
 
+
+
+
 - (void)mapContactPlayersBetweenNodeA:(SKNode *)nodeA andNodeB:(SKNode *)nodeB{
+    
+//    [nodeA setPaused:YES];
+//    [self setPaused:YES];
+    
+//    TLOG(@"mapContactPlayersBetweenNodeA");
+//    [[nodeA physicsBody] setVelocity:CGPointZero];
+//    [[nodeB physicsBody] setVelocity:CGPointZero];
+    
+//    [nodeA setPosition:[nodeA position]];
+//    [nodeB setPosition:[nodeB position]];
+    
+//    oldPointA = [nodeA position];
+//    oldPointB = [nodeB position];
+//    
+//    oldNodeA = nodeA;
+//    oldNodeB = nodeB;
+//    TLOG(@"desity->%f", [nodeA physicsBody].density);
+//    if ([self isMovingUp:[nodeA physicsBody]]) {
+//        [[nodeB physicsBody] applyForce:CGPointMake(0, 10)];
+//    }
+//    
+//    if ([self isMovingUp:[nodeB physicsBody]]) {
+//        [[nodeA physicsBody] applyForce:CGPointMake(0, 10)];
+//    }
+//    [self restoreLastContact];
+//    [self performSelector:@selector(restoreLastContact) withObject:self afterDelay:1];
+    
+//    float distanceY =  nodeB.position.y - nodeA.position.y;
+//    TLOG(@"distanceY %f", distanceY);
 //    [self reverseUpDownForNode:nodeA];
 //    [self reverseUpDownForNode:nodeB];
 }
 
-
+- (void)restoreLastContact{
+    TLOG(@"restoreLastContact");
+    [oldNodeA setPosition:oldPointA];
+    [oldNodeB setPosition:oldPointB];
+}
 
 #pragma mark - 
 

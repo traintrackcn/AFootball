@@ -8,13 +8,15 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface AFPlayerNode : SKSpriteNode
+@interface AFPlayerNode : SKNode
 
 - (id)initWithSize:(CGSize)size;
 - (void)setVelocity:(CGPoint)velocity;
 - (void)playAnimation:(NSArray *)textures repeat:(BOOL)repeat;
+//- (void)size;
+- (CGSize)size;
+- (CGSize)physicsSize;
 
-
-@property (nonatomic, strong) SKNode *standNode;
+@property (nonatomic, strong) SKSpriteNode *skinNode;
 
 @end

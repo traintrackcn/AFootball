@@ -34,8 +34,8 @@
 		4A478D25179E897E00BF6067 /* linkRunUp_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A478D0F179E897E00BF6067 /* linkRunUp_4.png */; };
 		4A478D26179E897E00BF6067 /* linkRunUp_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A478D10179E897E00BF6067 /* linkRunUp_5.png */; };
 		4A478D27179E897E00BF6067 /* linkRunUp_6.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A478D11179E897E00BF6067 /* linkRunUp_6.png */; };
-		4A54DD4E1798EF8200BF7359 /* QTreeContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A54DD4D1798EF8200BF7359 /* QTreeContact.m */; };
 		4A54DD5C179A36D100BF7359 /* bg.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4A54DD5B179A36D100BF7359 /* bg.atlas */; };
+		4A61A9CE17A0CA96006FD6F3 /* T2DMapNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61A9CD17A0CA96006FD6F3 /* T2DMapNode.m */; };
 		4A89FB7417966C07001C7A19 /* QTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A89FB7117966C07001C7A19 /* QTree.m */; };
 		4A89FB7517966C07001C7A19 /* QTreeLeaf.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A89FB7317966C07001C7A19 /* QTreeLeaf.m */; };
 		4A89FB7B17968E89001C7A19 /* QTreeRoot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A89FB7A17968A3B001C7A19 /* QTreeRoot.m */; };
@@ -83,9 +83,9 @@
 		4A478D0F179E897E00BF6067 /* linkRunUp_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linkRunUp_4.png; sourceTree = "<group>"; };
 		4A478D10179E897E00BF6067 /* linkRunUp_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linkRunUp_5.png; sourceTree = "<group>"; };
 		4A478D11179E897E00BF6067 /* linkRunUp_6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linkRunUp_6.png; sourceTree = "<group>"; };
-		4A54DD4C1798EF8200BF7359 /* QTreeContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QTreeContact.h; sourceTree = "<group>"; };
-		4A54DD4D1798EF8200BF7359 /* QTreeContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QTreeContact.m; sourceTree = "<group>"; };
 		4A54DD5B179A36D100BF7359 /* bg.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = bg.atlas; sourceTree = "<group>"; };
+		4A61A9CC17A0CA96006FD6F3 /* T2DMapNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = T2DMapNode.h; sourceTree = "<group>"; };
+		4A61A9CD17A0CA96006FD6F3 /* T2DMapNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = T2DMapNode.m; sourceTree = "<group>"; };
 		4A89FB7017966C07001C7A19 /* QTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QTree.h; sourceTree = "<group>"; };
 		4A89FB7117966C07001C7A19 /* QTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QTree.m; sourceTree = "<group>"; };
 		4A89FB7217966C07001C7A19 /* QTreeLeaf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QTreeLeaf.h; sourceTree = "<group>"; };
@@ -161,6 +161,17 @@
 			path = link_atlas;
 			sourceTree = "<group>";
 		};
+		4A61A9CF17A0CA9E006FD6F3 /* T2DMap */ = {
+			isa = PBXGroup;
+			children = (
+				4AAC6C59179E99E100B89FF6 /* T2DMap.h */,
+				4AAC6C5A179E99E100B89FF6 /* T2DMap.m */,
+				4A61A9CC17A0CA96006FD6F3 /* T2DMapNode.h */,
+				4A61A9CD17A0CA96006FD6F3 /* T2DMapNode.m */,
+			);
+			name = T2DMap;
+			sourceTree = "<group>";
+		};
 		4A89FB6F17966C07001C7A19 /* QTree */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,8 +181,6 @@
 				4A89FB7317966C07001C7A19 /* QTreeLeaf.m */,
 				4A89FB7917968A3B001C7A19 /* QTreeRoot.h */,
 				4A89FB7A17968A3B001C7A19 /* QTreeRoot.m */,
-				4A54DD4C1798EF8200BF7359 /* QTreeContact.h */,
-				4A54DD4D1798EF8200BF7359 /* QTreeContact.m */,
 			);
 			path = QTree;
 			sourceTree = "<group>";
@@ -212,6 +221,7 @@
 		4ADE246E1793CD7F004EDA9F /* AFootball */ = {
 			isa = PBXGroup;
 			children = (
+				4A61A9CF17A0CA9E006FD6F3 /* T2DMap */,
 				4A0D73B0179FA7CF0074C6C4 /* AFCategory.h */,
 				4A0D73AD179F9C450074C6C4 /* AFPlayerNode.h */,
 				4A0D73AE179F9C450074C6C4 /* AFPlayerNode.m */,
@@ -219,8 +229,6 @@
 				4ADE24781793CD7F004EDA9F /* AFAppDelegate.m */,
 				4ADE24801793CD7F004EDA9F /* AFViewController.h */,
 				4ADE24811793CD7F004EDA9F /* AFViewController.m */,
-				4AAC6C59179E99E100B89FF6 /* T2DMap.h */,
-				4AAC6C5A179E99E100B89FF6 /* T2DMap.m */,
 				4ADE24831793CD7F004EDA9F /* AFMyScene.h */,
 				4ADE24841793CD7F004EDA9F /* AFMyScene.m */,
 				4ADE246F1793CD7F004EDA9F /* Supporting Files */,
@@ -380,8 +388,8 @@
 				4ADE24851793CD7F004EDA9F /* AFMyScene.m in Sources */,
 				4A89FB7517966C07001C7A19 /* QTreeLeaf.m in Sources */,
 				4A0D73AF179F9C450074C6C4 /* AFPlayerNode.m in Sources */,
+				4A61A9CE17A0CA96006FD6F3 /* T2DMapNode.m in Sources */,
 				4ADE24821793CD7F004EDA9F /* AFViewController.m in Sources */,
-				4A54DD4E1798EF8200BF7359 /* QTreeContact.m in Sources */,
 				4ADE24791793CD7F004EDA9F /* AFAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -484,6 +492,7 @@
 				INFOPLIST_FILE = "AFootball/AFootball-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -500,6 +509,7 @@
 				INFOPLIST_FILE = "AFootball/AFootball-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

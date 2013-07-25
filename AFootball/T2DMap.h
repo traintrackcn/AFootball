@@ -32,6 +32,8 @@
 
 - (void)didSimulatePhysics;
 
+- (SKNode *)touchedNode:(UITouch *)touch;
+
 @property (nonatomic, weak) id<T2DMapDelegate> delegate;
 
 @property (nonatomic, assign) CGRect largeBackgroundFrame;

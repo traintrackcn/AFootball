@@ -7,6 +7,7 @@
 //
 
 #import "T2DMap.h"
+#import "AFPlayerNode.h"
 
 @interface T2DMap(){
     SKSpriteNode *maskNode;
@@ -33,7 +34,6 @@
         mapSize = aSize;
         treeSize = aTreeSize;
         nodes = [NSMutableDictionary dictionary];
-        
         [self assembleLayers];
         [self assembleTreeRoot];
         [self setScale:1];
@@ -53,7 +53,7 @@
 
 - (void)assembleCropMask{
     CGSize screenSize = [[UIScreen mainScreen] bounds].size;
-     maskNode = [SKSpriteNode spriteNodeWithColor:[UIColor colorWithRed:33.0/255.0 green:123.0/255.0 blue:0 alpha:1] size:CGSizeMake(screenSize.width,screenSize.width)];
+     maskNode = [SKSpriteNode spriteNodeWithColor:[UIColor blackColor] size:CGSizeMake(screenSize.width,screenSize.width)];
     [maskNode setPosition:CGPointMake(maskNode.size.width/2, maskNode.size.height/2)];
     [self addChild:maskNode];
     [self setMaskNode:maskNode];
@@ -91,6 +91,10 @@
 
 
 #pragma mark - properties
+
+- (SKNode *)baseLayer{
+    return baseLayer;
+}
 
 - (void)setScale:(CGFloat)scale{
     _scale = scale;
@@ -173,6 +177,7 @@
         body = [SKPhysicsBody bodyWithEdgeFromPoint:start toPoint:end];
         [body setCategoryBitMask:CategoryWall];
         [body setDynamic:NO];
+//        [body setUsesPreciseCollisionDetection:YES];
         [node setPhysicsBody:body];
         [backgroundLayer addChild:node];
     }
@@ -195,7 +200,7 @@
 - (void)didSimulatePhysics{
     [self update];
     [self focusAction];
-//    [self zoomAction];
+    [self zoomAction];
 }
 
 - (void)update{
@@ -236,12 +241,14 @@
     QTreeLeaf *leaf;
     SKSpriteNode *sprite;
     if ([leafs count]==0) {
+        targetScale = _scale;
         return CGPointMake(treeSize.width/2.0, treeSize.height/2.0);
     }
     
     if ([leafs count] == 1) {
         leaf = [leafs objectAtIndex:0];
         sprite = [self spriteForKey:[leaf key]];
+        targetScale = _scale;
         return [sprite position];
     }
     
@@ -302,6 +309,30 @@
     [self setScale:targetScale];
 }
 
+
+- (SKNode *)touchedNode:(UITouch *)touch{
+    CGPoint pos = [touch locationInNode:baseLayer];
+//    NSArray *touchedNodes = [baseLayer nodesAtPoint:pos];
+    SKNode *node = [baseLayer nodeAtPoint:pos];
+//    TLOG(@"%@", [baseLayer nodeAtPoint:pos])
+    
+    if ([[node parent] isKindOfClass:([AFPlayerNode class])]) {
+        return [node parent];
+    }
+    
+    if ([node isKindOfClass:([AFPlayerNode class])]) {
+        return node;
+    }
+    
+    
+//    for (int i=0; i<[touchedNodes count]; i++) {
+//        SKNode *node = [touchedNodes objectAtIndex:i];
+////        TLOG(@"category -> %d", [node physicsBody].categoryBitMask);
+//    }
+    
+    
+    return nil;
+}
 
 #pragma mark - sprites opertors
 
@@ -385,12 +416,12 @@
 }
 
 - (void)qtreeDidRegisterTree:(QTree *)tree{
-//    return;
+    return;
     [self addNodeForTree:tree];
 }
 
 - (void)qtreeDidUnregisterTree:(QTree *)tree{
-//    return;
+    return;
     [self removeNodeForKey:[tree key]];
 }
 

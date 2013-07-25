@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "QTree.h"
-#import "QTreeContact.h"
 
 @protocol QTreeDelegate <NSObject>
 

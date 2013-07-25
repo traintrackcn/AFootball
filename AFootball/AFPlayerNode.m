@@ -11,6 +11,9 @@
 
 @interface AFPlayerNode(){
     SKPhysicsBody *physicsBody;
+    CGSize skinSize;
+    CGSize physicsSize;
+    CGSize physicsFixedSize; // produce more accurate collisions
 }
 
 @end
@@ -18,31 +21,50 @@
 @implementation AFPlayerNode
 
 - (id)initWithSize:(CGSize)size{
-    self = [super initWithColor:[UIColor blueColor] size:size];
+    skinSize = size;
+    physicsSize = CGSizeMake(skinSize.width, skinSize.height-14.0);
+    physicsFixedSize = CGSizeMake(physicsSize.width-3.0, physicsSize.height-3.0);
+    self = [super init];
     if (self) {
         [self assemblePhysicsBody];
-        
-//        TLOG(@"anchor -> %f %f", [self anchorPoint].x, [self anchorPoint].y);
+        [self assembleSkin];
+//        [self assemblePhysicsHelper];
+
     }
     return self;
 }
 
+- (void)assemblePhysicsHelper{
+    SKSpriteNode *helper = [[SKSpriteNode alloc] initWithColor:[UIColor blueColor] size:physicsSize];
+    [helper setAlpha:0.5];
+    [self addChild:helper];
+}
+
 - (void)assemblePhysicsBody{
-    physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
+//    physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
+    physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:physicsFixedSize];
     [physicsBody setAffectedByGravity:NO];
     [physicsBody setDynamic:YES];
     [physicsBody setAllowsRotation:NO];
     [physicsBody setCategoryBitMask:CategoryPlayer];
     [physicsBody setContactTestBitMask:CategoryPlayer|CategoryWall];
-    [physicsBody setCollisionBitMask:CategoryNull];
+    [physicsBody setCollisionBitMask:CategoryPlayer|CategoryWall];
     [physicsBody setFriction:0];
     [physicsBody setVelocity:CGPointMake(0, 0)];
     [physicsBody setLinearDamping:0];
+//    [physicsBody setUsesPreciseCollisionDetection:YES];
     [self setPhysicsBody:physicsBody];
 }
 
 - (void)setVelocity:(CGPoint)velocity{
     [physicsBody setVelocity:velocity];
+}
+
+- (void)assembleSkin{
+    _skinNode = [SKSpriteNode spriteNodeWithColor:[UIColor purpleColor] size:skinSize];
+    [_skinNode setPosition:CGPointMake(0, (skinSize.height - physicsSize.height)/2)];
+//    [_skinNode setAlpha:0.5];
+    [self addChild:_skinNode];
 }
 
 - (void)playAnimation:(NSArray *)textures repeat:(BOOL)repeat{
@@ -51,16 +73,18 @@
     SKAction *anim;
     anim = [SKAction animateWithTextures:textures timePerFrame:0.1];
     if (repeat) anim = [SKAction repeatActionForever:anim];
-    [self runAction:anim withKey:@"animation"];
+    [_skinNode runAction:anim withKey:@"animation"];
 }
 
-//- (void)assembleStand{
-//    float w = [self size].width;
-//    float h = 6;
-//    _standNode = [[AFStandNode alloc] initWithSize:CGSizeMake(w, h)];
-//    [_standNode setPosition:CGPointMake(0, -8)];
-//    [self addChild:_standNode];
-//}
+#pragma mark - properties
+
+- (CGSize)size{
+    return skinSize;
+}
+
+- (CGSize)physicsSize{
+    return physicsSize;
+}
 
 
 @end

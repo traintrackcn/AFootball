@@ -12,7 +12,8 @@
 enum{
     CategoryPlayer = 0x1 << 0,
     CategoryNull = 0x1<< 1,
-    CategoryWall = 0x1 << 2
+    CategoryWall = 0x1 << 2,
+    CategoryBall = 0x1 << 3
 };
 
 
