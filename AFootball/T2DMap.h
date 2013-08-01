@@ -9,15 +9,17 @@
 #import <SpriteKit/SpriteKit.h>
 #import "QTreeRoot.h"
 
+@class T2DMapNode;
+
 @protocol T2DMapDelegate <NSObject>
 
 @optional
-- (void)mapWallLContactNode:(SKNode *)node;
-- (void)mapWallRContactNode:(SKNode *)node;
-- (void)mapWallTContactNode:(SKNode *)node;
-- (void)mapWallBContactNode:(SKNode *)node;
+- (void)mapWallLContactNode:(T2DMapNode *)node;
+- (void)mapWallRContactNode:(T2DMapNode *)node;
+- (void)mapWallTContactNode:(T2DMapNode *)node;
+- (void)mapWallBContactNode:(T2DMapNode *)node;
 
-- (void)mapContactPlayersBetweenNodeA:(SKNode *)nodeA andNodeB:(SKNode *)nodeB;
+- (void)mapContactPlayersBetweenNodeA:(T2DMapNode *)nodeA andNodeB:(T2DMapNode *)nodeB;
 
 @end
 
@@ -28,11 +30,11 @@
 - (void)positionInScreenCenter;
 - (CGFloat)scale;
 - (int)leafCount;
-- (void)addNode:(SKNode *)node;
+- (void)addNode:(T2DMapNode *)node;
 
 - (void)didSimulatePhysics;
 
-- (SKNode *)touchedNode:(UITouch *)touch;
+- (T2DMapNode *)touchedNode:(UITouch *)touch;
 
 @property (nonatomic, weak) id<T2DMapDelegate> delegate;
 

@@ -209,7 +209,7 @@
     NSArray *leafs = [[QTreeRoot sharedInstance] registeredLeafs];
     for (int i=0; i<[leafs count];i++) {
         QTreeLeaf *leaf = [leafs objectAtIndex:i];
-        SKSpriteNode *node = [self spriteForKey:[leaf key]];
+        T2DMapNode *node = [self nodeForKey:[leaf key]];
 //        if ([node physicsBody].velocity.y!=0) {
 //            [[node physicsBody] applyForce:CGPointMake(0, 0.04)];
 //            TLOG(@"velocity %f", node.physicsBody.velocity.y);
@@ -220,17 +220,17 @@
 }
 
 - (void)updateAABBForLeaf:(QTreeLeaf *)leaf{
-    SKSpriteNode *node = [self spriteForKey:[leaf key]];
+    T2DMapNode *node = [self nodeForKey:[leaf key]];
     CGRect aabb = [self gainAABB:node];
     [leaf setAabb:aabb];
     [[QTreeRoot sharedInstance] updateLeaf:leaf];
 }
 
-- (void)updateZPositionForNode:(SKNode *)node{
+- (void)updateZPositionForNode:(T2DMapNode *)node{
     [node setZPosition:[node position].y];
 }
 
-- (CGRect)gainAABB:(SKNode *)node{
+- (CGRect)gainAABB:(T2DMapNode *)node{
     SKSpriteNode *sprite = (SKSpriteNode *)node;
     CGSize size = sprite.size;
     CGPoint pos = sprite.position;
@@ -245,7 +245,7 @@
     NSArray *leafs = [[QTreeRoot sharedInstance] registeredLeafs];
     float xMax, xMin, yMax, yMin;
     QTreeLeaf *leaf;
-    SKSpriteNode *sprite;
+    T2DMapNode *sprite;
     if ([leafs count]==0) {
         targetScale = _scale;
         return CGPointMake(treeSize.width/2.0, treeSize.height/2.0);
@@ -253,7 +253,7 @@
     
     if ([leafs count] == 1) {
         leaf = [leafs objectAtIndex:0];
-        sprite = [self spriteForKey:[leaf key]];
+        sprite = [self nodeForKey:[leaf key]];
         targetScale = _scale;
         return [sprite position];
     }
@@ -263,7 +263,7 @@
     
     while (idx <= lastIdx) {
         leaf = [leafs objectAtIndex:idx];
-        sprite = [self spriteForKey:[leaf key]];
+        sprite = [self nodeForKey:[leaf key]];
         CGPoint pos = [sprite position];
         
         if (idx == 0) {
@@ -283,10 +283,11 @@
     
     
     // a little bit more focus area
-    xMax += 40;
-    xMin -= 40;
-    yMax += 40;
-    yMin -= 40;
+    float offset = 30;
+    xMax += offset;
+    xMin -= offset;
+    yMax += offset;
+    yMin -= offset;
     
     float x = (xMax-xMin)/2.0 + xMin;
     float y = (yMax - yMin)/2.0 + yMin;
@@ -298,7 +299,8 @@
     //    TLOG(@"scaleX %f  mapSize.width %f distanceX %f", scaleX, mapSize.width, distanceX);
     targetScale = scaleX>scaleY?scaleY:scaleX;
 //    TLOG(@"targetScale %f fixedTargetScalle %f", targetScale, floorf(targetScale*2)/2);
-    targetScale = floorf(targetScale*10)/10;
+    int step = 3;
+    targetScale = floorf(targetScale*step)/step;
     
     
     return CGPointMake(x, y);
@@ -324,16 +326,20 @@
 
 
 - (void)focusAction{
-    if (![self needFocus]) return;
-    if (cameraMoving) return;
-    cameraMoving = YES;
+//    return;
     CGPoint targetLayerPos = [self baseLayerPositionForCenterPoint:[self groupCenter]];
-    CGFloat duration = 0.5;
-    SKAction *action = [SKAction moveTo:targetLayerPos duration:duration];
-    [action setTimingMode:SKActionTimingEaseIn];
-    [baseLayer runAction:action completion:^{
-        cameraMoving = NO;
-    }];
+    [baseLayer setPosition:targetLayerPos];
+    
+//    if (![self needFocus]) return;
+//    if (cameraMoving) return;
+//    cameraMoving = YES;
+//    CGPoint targetLayerPos = [self baseLayerPositionForCenterPoint:[self groupCenter]];
+//    CGFloat duration = .5;
+//    SKAction *action = [SKAction moveTo:targetLayerPos duration:duration];
+//    [action setTimingMode:SKActionTimingEaseOut];
+//    [baseLayer runAction:action completion:^{
+//        cameraMoving = NO;
+//    }];
 }
 
 
@@ -361,7 +367,7 @@
         CGFloat scale = scaleOffset*percent+tmpScale;
         [self setScale:scale];
     }];
-    [action setTimingMode:SKActionTimingEaseIn];
+    [action setTimingMode:SKActionTimingEaseOut];
     
     [baseLayer runAction:action completion:^{
         cameraZooming = NO;
@@ -371,21 +377,17 @@
 }
 
 
-- (SKNode *)touchedNode:(UITouch *)touch{
+- (T2DMapNode *)touchedNode:(UITouch *)touch{
     CGPoint pos = [touch locationInNode:baseLayer];
     SKNode *node = [baseLayer nodeAtPoint:pos];
-    if ([[node parent] isKindOfClass:([AFPlayerNode class])])  return [node parent];
-    if ([node isKindOfClass:([AFPlayerNode class])])  return node;
+    if ([[node parent] isKindOfClass:([AFPlayerNode class])])  return (T2DMapNode *)[node parent];
+    if ([node isKindOfClass:([AFPlayerNode class])])  return (T2DMapNode *)node;
     return nil;
 }
 
 #pragma mark - sprites opertors
 
-- (SKSpriteNode *)spriteForKey:(NSString *)key{
-    return (SKSpriteNode *)[self nodeForKey:key];
-}
-
-- (SKNode *)nodeForKey:(NSString *)key{
+- (T2DMapNode *)nodeForKey:(NSString *)key{
     return [nodes objectForKey:key];
 }
 
@@ -395,7 +397,7 @@
     [nodes removeObjectForKey:key];
 }
 
-- (void)addNode:(SKNode *)node{
+- (void)addNode:(T2DMapNode *)node{
     QTreeLeaf *leaf = [[QTreeLeaf alloc] init];
     CGRect aabb = [self gainAABB:node];
     [leaf setAabb:aabb];
@@ -423,19 +425,19 @@
     NSString *wallName = [[wall node] name];
     if ([wallName isEqualToString:@"wallL"]) {
         if ([_delegate respondsToSelector:@selector(mapWallLContactNode:)]) {
-            [_delegate mapWallLContactNode:[player node]];
+            [_delegate mapWallLContactNode:(T2DMapNode *)[player node]];
         }
     }else if ([wallName isEqualToString:@"wallR"]) {
         if ([_delegate respondsToSelector:@selector(mapWallRContactNode:)]) {
-            [_delegate mapWallRContactNode:[player node]];
+            [_delegate mapWallRContactNode:(T2DMapNode *)[player node]];
         }
     }else if ([wallName isEqualToString:@"wallT"]) {
         if ([_delegate respondsToSelector:@selector(mapWallTContactNode:)]) {
-            [_delegate mapWallTContactNode:[player node]];
+            [_delegate mapWallTContactNode:(T2DMapNode *)[player node]];
         }
     }else if ([wallName isEqualToString:@"wallB"]) {
         if ([_delegate respondsToSelector:@selector(mapWallBContactNode:)]) {
-            [_delegate mapWallBContactNode:[player node]];
+            [_delegate mapWallBContactNode:(T2DMapNode *)[player node]];
         }
     }
 }
@@ -444,7 +446,7 @@
 - (void)contactBetweenPlayerA:(SKPhysicsBody *)playerA andPlayerB:(SKPhysicsBody *)playerB{
 //    TLOG(@"");
     if ([_delegate respondsToSelector:@selector(mapContactPlayersBetweenNodeA:andNodeB:)]) {
-        [_delegate mapContactPlayersBetweenNodeA:[playerA node] andNodeB:[playerB node]];
+        [_delegate mapContactPlayersBetweenNodeA:(T2DMapNode *)[playerA node] andNodeB:(T2DMapNode *)[playerB node]];
     }
 }
 

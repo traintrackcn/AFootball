@@ -222,23 +222,23 @@
 
 #pragma mark - T2DMapDelegate
 
-- (void)mapWallBContactNode:(SKNode *)node{
+- (void)mapWallBContactNode:(T2DMapNode *)node{
 //    TLOG(@"");
      [self reverseUpDownForNode:node];
 }
 
-- (void)mapWallTContactNode:(SKNode *)node{
+- (void)mapWallTContactNode:(T2DMapNode *)node{
 //     TLOG(@"");
     [self reverseUpDownForNode:node];
 }
 
-- (void)mapWallLContactNode:(SKNode *)node{
+- (void)mapWallLContactNode:(T2DMapNode *)node{
     SKPhysicsBody *body = [node physicsBody];
     AFPlayerNode *playerNode = (AFPlayerNode *)node;
     [playerNode setVelocity:CGPointMake(-[self randomVelocityScalar], body.velocity.y)];
 }
 
-- (void)mapWallRContactNode:(SKNode *)node{
+- (void)mapWallRContactNode:(T2DMapNode *)node{
     SKPhysicsBody *body = [node physicsBody];
     AFPlayerNode *playerNode = (AFPlayerNode *)node;
     [playerNode setVelocity:CGPointMake([self randomVelocityScalar], body.velocity.y)];
@@ -247,7 +247,7 @@
 
 
 
-- (void)mapContactPlayersBetweenNodeA:(SKNode *)nodeA andNodeB:(SKNode *)nodeB{
+- (void)mapContactPlayersBetweenNodeA:(T2DMapNode *)nodeA andNodeB:(T2DMapNode *)nodeB{
     
 //    [nodeA setPaused:YES];
 //    [self setPaused:YES];
