@@ -35,7 +35,8 @@
 		4A478D26179E897E00BF6067 /* linkRunUp_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A478D10179E897E00BF6067 /* linkRunUp_5.png */; };
 		4A478D27179E897E00BF6067 /* linkRunUp_6.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A478D11179E897E00BF6067 /* linkRunUp_6.png */; };
 		4A54DD5C179A36D100BF7359 /* bg.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4A54DD5B179A36D100BF7359 /* bg.atlas */; };
-		4A61A9CE17A0CA96006FD6F3 /* T2DMapNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61A9CD17A0CA96006FD6F3 /* T2DMapNode.m */; };
+		4A61A9CE17A0CA96006FD6F3 /* T2DNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61A9CD17A0CA96006FD6F3 /* T2DNode.m */; };
+		4A70ED5517AA551E004F7C1C /* T2DCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A70ED5417AA551E004F7C1C /* T2DCamera.m */; };
 		4A89FB7417966C07001C7A19 /* QTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A89FB7117966C07001C7A19 /* QTree.m */; };
 		4A89FB7517966C07001C7A19 /* QTreeLeaf.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A89FB7317966C07001C7A19 /* QTreeLeaf.m */; };
 		4A89FB7B17968E89001C7A19 /* QTreeRoot.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A89FB7A17968A3B001C7A19 /* QTreeRoot.m */; };
@@ -84,8 +85,10 @@
 		4A478D10179E897E00BF6067 /* linkRunUp_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linkRunUp_5.png; sourceTree = "<group>"; };
 		4A478D11179E897E00BF6067 /* linkRunUp_6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linkRunUp_6.png; sourceTree = "<group>"; };
 		4A54DD5B179A36D100BF7359 /* bg.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = bg.atlas; sourceTree = "<group>"; };
-		4A61A9CC17A0CA96006FD6F3 /* T2DMapNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = T2DMapNode.h; sourceTree = "<group>"; };
-		4A61A9CD17A0CA96006FD6F3 /* T2DMapNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = T2DMapNode.m; sourceTree = "<group>"; };
+		4A61A9CC17A0CA96006FD6F3 /* T2DNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = T2DNode.h; sourceTree = "<group>"; };
+		4A61A9CD17A0CA96006FD6F3 /* T2DNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = T2DNode.m; sourceTree = "<group>"; };
+		4A70ED5317AA551E004F7C1C /* T2DCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = T2DCamera.h; sourceTree = "<group>"; };
+		4A70ED5417AA551E004F7C1C /* T2DCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = T2DCamera.m; sourceTree = "<group>"; };
 		4A89FB7017966C07001C7A19 /* QTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QTree.h; sourceTree = "<group>"; };
 		4A89FB7117966C07001C7A19 /* QTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QTree.m; sourceTree = "<group>"; };
 		4A89FB7217966C07001C7A19 /* QTreeLeaf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QTreeLeaf.h; sourceTree = "<group>"; };
@@ -166,8 +169,10 @@
 			children = (
 				4AAC6C59179E99E100B89FF6 /* T2DMap.h */,
 				4AAC6C5A179E99E100B89FF6 /* T2DMap.m */,
-				4A61A9CC17A0CA96006FD6F3 /* T2DMapNode.h */,
-				4A61A9CD17A0CA96006FD6F3 /* T2DMapNode.m */,
+				4A61A9CC17A0CA96006FD6F3 /* T2DNode.h */,
+				4A61A9CD17A0CA96006FD6F3 /* T2DNode.m */,
+				4A70ED5317AA551E004F7C1C /* T2DCamera.h */,
+				4A70ED5417AA551E004F7C1C /* T2DCamera.m */,
 			);
 			name = T2DMap;
 			sourceTree = "<group>";
@@ -382,13 +387,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A89FB7B17968E89001C7A19 /* QTreeRoot.m in Sources */,
+				4A70ED5517AA551E004F7C1C /* T2DCamera.m in Sources */,
 				4ADE24751793CD7F004EDA9F /* main.m in Sources */,
 				4AAC6C5B179E99E100B89FF6 /* T2DMap.m in Sources */,
 				4A89FB7417966C07001C7A19 /* QTree.m in Sources */,
 				4ADE24851793CD7F004EDA9F /* AFMyScene.m in Sources */,
 				4A89FB7517966C07001C7A19 /* QTreeLeaf.m in Sources */,
 				4A0D73AF179F9C450074C6C4 /* AFPlayerNode.m in Sources */,
-				4A61A9CE17A0CA96006FD6F3 /* T2DMapNode.m in Sources */,
+				4A61A9CE17A0CA96006FD6F3 /* T2DNode.m in Sources */,
 				4ADE24821793CD7F004EDA9F /* AFViewController.m in Sources */,
 				4ADE24791793CD7F004EDA9F /* AFAppDelegate.m in Sources */,
 			);

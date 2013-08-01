@@ -8,6 +8,9 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface T2DMapNode : SKNode
+@interface T2DNode : SKNode
+
+- (CGSize)size;
+- (CGSize)physicsSize;
 
 @end

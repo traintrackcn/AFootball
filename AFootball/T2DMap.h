@@ -9,32 +9,48 @@
 #import <SpriteKit/SpriteKit.h>
 #import "QTreeRoot.h"
 
-@class T2DMapNode;
+@class T2DNode;
 
 @protocol T2DMapDelegate <NSObject>
 
 @optional
-- (void)mapWallLContactNode:(T2DMapNode *)node;
-- (void)mapWallRContactNode:(T2DMapNode *)node;
-- (void)mapWallTContactNode:(T2DMapNode *)node;
-- (void)mapWallBContactNode:(T2DMapNode *)node;
+- (void)mapWallLContactNode:(T2DNode *)node;
+- (void)mapWallRContactNode:(T2DNode *)node;
+- (void)mapWallTContactNode:(T2DNode *)node;
+- (void)mapWallBContactNode:(T2DNode *)node;
 
-- (void)mapContactPlayersBetweenNodeA:(T2DMapNode *)nodeA andNodeB:(T2DMapNode *)nodeB;
+- (void)mapContactPlayersBetweenNodeA:(T2DNode *)nodeA andNodeB:(T2DNode *)nodeB;
 
 @end
 
 @interface T2DMap : SKCropNode <QTreeDelegate, SKPhysicsContactDelegate>
 
-- (id)initWithSize:(CGSize)aSize treeSize:(CGSize)aTreeSize;
+- (id)initWithSize:(CGSize)aSize layerSize:(CGSize)aLayerSize;
 - (void)setLargeBackgroundImageNamed:(NSString *)imageName;
 - (void)positionInScreenCenter;
-- (CGFloat)scale;
 - (int)leafCount;
-- (void)addNode:(T2DMapNode *)node;
+- (CGSize)size;
+
+#pragma mark - camera operators
+
+- (void)assembleCamera;
+
+#pragma mark - layer operators
+- (CGPoint)layerCenter;
+- (void)setLayerPosition:(CGPoint)pos;
+- (SKNode *)layer;
+
+- (void)addNode:(T2DNode *)node;
+- (T2DNode *)nodeForKey:(NSString *)key;
+- (void)removeNodeForKey:(NSString *)key;
 
 - (void)didSimulatePhysics;
 
-- (T2DMapNode *)touchedNode:(UITouch *)touch;
+- (CGPoint)layerPositionForCenterPoint:(CGPoint)pos;
+- (CGFloat)scale;
+- (void)setScale:(CGFloat)scale;
+
+- (T2DNode *)touchedNode:(UITouch *)touch;
 
 @property (nonatomic, weak) id<T2DMapDelegate> delegate;
 

@@ -9,6 +9,7 @@
 #import "AFMyScene.h"
 #import "T2DMap.h"
 #import "AFPlayerNode.h"
+#import "T2DCamera.h"
 
 
 
@@ -63,13 +64,15 @@
 }
 
 - (void)assembleMap{
-    map = [[T2DMap alloc] initWithSize:CGSizeMake(320.0, 320.0) treeSize:CGSizeMake(256.0, 256.0)];
+    map = [[T2DMap alloc] initWithSize:CGSizeMake(320.0, 320.0) layerSize:CGSizeMake(256.0, 256.0)];
     [map setLargeBackgroundImageNamed:@"AFField"];
     [map positionInScreenCenter];
     [map setDelegate:self];
     [self addChild:map];
     [[self physicsWorld] setContactDelegate:map];
     [[self physicsWorld] setGravity:CGPointMake(0, -9.8)];
+    
+//    T2DCamera *c = [[T2DCamera alloc] initWithMap:map];
     
 }
 
@@ -222,23 +225,23 @@
 
 #pragma mark - T2DMapDelegate
 
-- (void)mapWallBContactNode:(T2DMapNode *)node{
+- (void)mapWallBContactNode:(T2DNode *)node{
 //    TLOG(@"");
      [self reverseUpDownForNode:node];
 }
 
-- (void)mapWallTContactNode:(T2DMapNode *)node{
+- (void)mapWallTContactNode:(T2DNode *)node{
 //     TLOG(@"");
     [self reverseUpDownForNode:node];
 }
 
-- (void)mapWallLContactNode:(T2DMapNode *)node{
+- (void)mapWallLContactNode:(T2DNode *)node{
     SKPhysicsBody *body = [node physicsBody];
     AFPlayerNode *playerNode = (AFPlayerNode *)node;
     [playerNode setVelocity:CGPointMake(-[self randomVelocityScalar], body.velocity.y)];
 }
 
-- (void)mapWallRContactNode:(T2DMapNode *)node{
+- (void)mapWallRContactNode:(T2DNode *)node{
     SKPhysicsBody *body = [node physicsBody];
     AFPlayerNode *playerNode = (AFPlayerNode *)node;
     [playerNode setVelocity:CGPointMake([self randomVelocityScalar], body.velocity.y)];
@@ -247,7 +250,7 @@
 
 
 
-- (void)mapContactPlayersBetweenNodeA:(T2DMapNode *)nodeA andNodeB:(T2DMapNode *)nodeB{
+- (void)mapContactPlayersBetweenNodeA:(T2DNode *)nodeA andNodeB:(T2DNode *)nodeB{
     
 //    [nodeA setPaused:YES];
 //    [self setPaused:YES];

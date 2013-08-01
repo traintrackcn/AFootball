@@ -7,16 +7,13 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-#import "T2DMapNode.h"
+#import "T2DNode.h"
 
-@interface AFPlayerNode : T2DMapNode
+@interface AFPlayerNode : T2DNode
 
 - (id)initWithSize:(CGSize)size;
 - (void)setVelocity:(CGPoint)velocity;
 - (void)playAnimation:(NSArray *)textures repeat:(BOOL)repeat;
-//- (void)size;
-- (CGSize)size;
-- (CGSize)physicsSize;
 
 @property (nonatomic, strong) SKSpriteNode *skinNode;
 

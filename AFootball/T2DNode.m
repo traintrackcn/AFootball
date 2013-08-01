@@ -6,8 +6,16 @@
 //  Copyright (c) 2013年 traintrackcn. All rights reserved.
 //
 
-#import "T2DMapNode.h"
+#import "T2DNode.h"
 
-@implementation T2DMapNode
+@implementation T2DNode
+
+- (CGSize)size{
+    return CGSizeZero;
+}
+
+- (CGSize)physicsSize{
+    return CGSizeZero;
+}
 
 @end
