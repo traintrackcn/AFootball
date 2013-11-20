@@ -124,6 +124,7 @@
     [backgroundLayer addChild:sprite];
     CGPoint pos = [self layerCenter];
     [sprite setPosition:pos];
+    [sprite setZPosition:-100000];
     
     CGSize bgImgSize = [UIImage imageNamed:imageName].size;
     CGRect treeFrame = [[[QTreeRoot sharedInstance] root] frame];
@@ -238,7 +239,7 @@
 }
 
 - (void)updateZPositionForNode:(T2DNode *)node{
-    [node setZPosition:[node position].y];
+    [node setZPosition:-[node position].y];
 }
 
 - (CGRect)gainAABB:(T2DNode *)node{

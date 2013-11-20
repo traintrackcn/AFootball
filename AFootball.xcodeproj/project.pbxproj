@@ -34,6 +34,7 @@
 		4A478D25179E897E00BF6067 /* linkRunUp_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A478D0F179E897E00BF6067 /* linkRunUp_4.png */; };
 		4A478D26179E897E00BF6067 /* linkRunUp_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A478D10179E897E00BF6067 /* linkRunUp_5.png */; };
 		4A478D27179E897E00BF6067 /* linkRunUp_6.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A478D11179E897E00BF6067 /* linkRunUp_6.png */; };
+		4A538598183C874C00A7547F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A538597183C874C00A7547F /* AudioToolbox.framework */; };
 		4A54DD5C179A36D100BF7359 /* bg.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4A54DD5B179A36D100BF7359 /* bg.atlas */; };
 		4A61A9CE17A0CA96006FD6F3 /* T2DNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61A9CD17A0CA96006FD6F3 /* T2DNode.m */; };
 		4A70ED5517AA551E004F7C1C /* T2DCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A70ED5417AA551E004F7C1C /* T2DCamera.m */; };
@@ -44,7 +45,6 @@
 		4AA6166E1793D68200D88C6C /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AA6166C1793D68200D88C6C /* spark.png */; };
 		4AAC6C5B179E99E100B89FF6 /* T2DMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC6C5A179E99E100B89FF6 /* T2DMap.m */; };
 		4ADE24671793CD7F004EDA9F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADE24661793CD7F004EDA9F /* Foundation.framework */; };
-		4ADE24691793CD7F004EDA9F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADE24681793CD7F004EDA9F /* CoreGraphics.framework */; };
 		4ADE246B1793CD7F004EDA9F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADE246A1793CD7F004EDA9F /* UIKit.framework */; };
 		4ADE246D1793CD7F004EDA9F /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADE246C1793CD7F004EDA9F /* SpriteKit.framework */; };
 		4ADE24731793CD7F004EDA9F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4ADE24711793CD7F004EDA9F /* InfoPlist.strings */; };
@@ -84,6 +84,7 @@
 		4A478D0F179E897E00BF6067 /* linkRunUp_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linkRunUp_4.png; sourceTree = "<group>"; };
 		4A478D10179E897E00BF6067 /* linkRunUp_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linkRunUp_5.png; sourceTree = "<group>"; };
 		4A478D11179E897E00BF6067 /* linkRunUp_6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linkRunUp_6.png; sourceTree = "<group>"; };
+		4A538597183C874C00A7547F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		4A54DD5B179A36D100BF7359 /* bg.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = bg.atlas; sourceTree = "<group>"; };
 		4A61A9CC17A0CA96006FD6F3 /* T2DNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = T2DNode.h; sourceTree = "<group>"; };
 		4A61A9CD17A0CA96006FD6F3 /* T2DNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = T2DNode.m; sourceTree = "<group>"; };
@@ -101,7 +102,6 @@
 		4AAC6C5A179E99E100B89FF6 /* T2DMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = T2DMap.m; sourceTree = "<group>"; };
 		4ADE24631793CD7F004EDA9F /* AFootball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AFootball.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ADE24661793CD7F004EDA9F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		4ADE24681793CD7F004EDA9F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		4ADE246A1793CD7F004EDA9F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4ADE246C1793CD7F004EDA9F /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		4ADE24701793CD7F004EDA9F /* AFootball-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AFootball-Info.plist"; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4ADE24691793CD7F004EDA9F /* CoreGraphics.framework in Frameworks */,
+				4A538598183C874C00A7547F /* AudioToolbox.framework in Frameworks */,
 				4ADE246B1793CD7F004EDA9F /* UIKit.framework in Frameworks */,
 				4ADE246D1793CD7F004EDA9F /* SpriteKit.framework in Frameworks */,
 				4ADE24671793CD7F004EDA9F /* Foundation.framework in Frameworks */,
@@ -214,8 +214,8 @@
 		4ADE24651793CD7F004EDA9F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4A538597183C874C00A7547F /* AudioToolbox.framework */,
 				4ADE24661793CD7F004EDA9F /* Foundation.framework */,
-				4ADE24681793CD7F004EDA9F /* CoreGraphics.framework */,
 				4ADE246A1793CD7F004EDA9F /* UIKit.framework */,
 				4ADE246C1793CD7F004EDA9F /* SpriteKit.framework */,
 				7BD51216E0AE428C990DFE5C /* libPods.a */,
@@ -493,6 +493,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				COMPRESS_PNG_FILES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/traintrackcn/_OnBackupTYF/[Prj]/AFootball",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AFootball/AFootball-Prefix.pch";
 				INFOPLIST_FILE = "AFootball/AFootball-Info.plist";
@@ -510,6 +514,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				COMPRESS_PNG_FILES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/traintrackcn/_OnBackupTYF/[Prj]/AFootball",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AFootball/AFootball-Prefix.pch";
 				INFOPLIST_FILE = "AFootball/AFootball-Info.plist";
