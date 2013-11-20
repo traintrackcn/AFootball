@@ -12,7 +12,7 @@
 @interface AFPlayerNode : T2DNode
 
 - (id)initWithSize:(CGSize)size;
-- (void)setVelocity:(CGPoint)velocity;
+- (void)setVelocity:(CGVector)velocity;
 - (void)playAnimation:(NSArray *)textures repeat:(BOOL)repeat;
 
 @property (nonatomic, strong) SKSpriteNode *skinNode;

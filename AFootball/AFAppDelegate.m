@@ -8,11 +8,16 @@
 
 #import "AFAppDelegate.h"
 #import "AFViewController.h"
+//#import <Parse/Parse.h>
 
 @implementation AFAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //Parse.com configs
+//    [Parse setApplicationId:@"nScrMH4sZ6rkc5PpmuFFAfvrcm6f3wvLtrlzahgR" clientKey:@"nDUPfeUeUZop4T9Wm5gz1ncaCfqa9s0EQFzMD1a5"];
+//    
+//    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     // Override point for customization after application launch.
     
     

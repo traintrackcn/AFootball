@@ -70,7 +70,7 @@
     [map setDelegate:self];
     [self addChild:map];
     [[self physicsWorld] setContactDelegate:map];
-    [[self physicsWorld] setGravity:CGPointMake(0, -9.8)];
+    [[self physicsWorld] setGravity:CGVectorMake(0, -9.8)];
     
 //    T2DCamera *c = [[T2DCamera alloc] initWithMap:map];
     
@@ -119,10 +119,10 @@
     [node setPosition:pos];
     
     if (pos.y>100) {
-        [node setVelocity:CGPointMake([self randomVelocityScalar], -[self randomVelocityScalar])];
+        [node setVelocity:CGVectorMake([self randomVelocityScalar], -[self randomVelocityScalar])];
         [node playAnimation:playerRunDownTextures repeat:YES];
     }else{
-        [node setVelocity:CGPointMake([self randomVelocityScalar], [self randomVelocityScalar])];
+        [node setVelocity:CGVectorMake([self randomVelocityScalar], [self randomVelocityScalar])];
 //        TLOG(@"mass -> %f area -> %f", [node physicsBody].mass, [node physicsBody].area);
 //        [[node physicsBody] applyImpulse:CGPointMake(0, 50)];
         [node playAnimation:playerRunUpTextures repeat:YES];
@@ -144,17 +144,17 @@
     SKPhysicsBody *body = [node physicsBody];
     AFPlayerNode *playerNode = (AFPlayerNode *)node;
     if ([self isMovingUp:body]) {
-        [playerNode setVelocity:CGPointMake(body.velocity.x, -[self randomVelocityScalar])];
+        [playerNode setVelocity:CGVectorMake(body.velocity.dx, -[self randomVelocityScalar])];
         [playerNode playAnimation:playerRunDownTextures repeat:YES];
     }else{
-        [playerNode setVelocity:CGPointMake(body.velocity.x, [self randomVelocityScalar])];
+        [playerNode setVelocity:CGVectorMake(body.velocity.dx, [self randomVelocityScalar])];
         [playerNode playAnimation:playerRunUpTextures repeat:YES];
     }
 }
 
 
 - (BOOL)isMovingUp:(SKPhysicsBody *)body{
-    if (body.velocity.y > 0)  return YES;
+    if (body.velocity.dy > 0)  return YES;
     return NO;
 }
 
@@ -238,13 +238,13 @@
 - (void)mapWallLContactNode:(T2DNode *)node{
     SKPhysicsBody *body = [node physicsBody];
     AFPlayerNode *playerNode = (AFPlayerNode *)node;
-    [playerNode setVelocity:CGPointMake(-[self randomVelocityScalar], body.velocity.y)];
+    [playerNode setVelocity:CGVectorMake(-[self randomVelocityScalar], body.velocity.dy)];
 }
 
 - (void)mapWallRContactNode:(T2DNode *)node{
     SKPhysicsBody *body = [node physicsBody];
     AFPlayerNode *playerNode = (AFPlayerNode *)node;
-    [playerNode setVelocity:CGPointMake([self randomVelocityScalar], body.velocity.y)];
+    [playerNode setVelocity:CGVectorMake([self randomVelocityScalar], body.velocity.dy)];
 }
 
 

@@ -51,13 +51,13 @@
 //    [physicsBody setCollisionBitMask:CategoryPlayer|CategoryWall];
     [physicsBody setCollisionBitMask:CategoryNull];
     [physicsBody setFriction:0];
-    [physicsBody setVelocity:CGPointMake(0, 0)];
+    [physicsBody setVelocity:CGVectorMake(0, 0)];
     [physicsBody setLinearDamping:0];
 //    [physicsBody setUsesPreciseCollisionDetection:YES];
     [self setPhysicsBody:physicsBody];
 }
 
-- (void)setVelocity:(CGPoint)velocity{
+- (void)setVelocity:(CGVector)velocity{
     [physicsBody setVelocity:velocity];
 }
 
